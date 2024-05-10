@@ -39,17 +39,13 @@ def startingpage(request):
 
 
 def render_products_list(request):
-    #
     products = Product.objects.all()
 
-    #
     brands = Product.objects.all().values_list(
         'brand', flat=True).distinct().order_by()
 
-    #
     category = request.GET.get("category", None)
 
-    #
     if category:
         products = products.filter(category_id=category)
 

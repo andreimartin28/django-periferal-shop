@@ -43,7 +43,7 @@ Success
     Thank you for your order, {{ request.user.last_name }}!</h1>
    {% for order in request.user.orders.all %} 
         {% if forloop.first %}
-            YOUR ORDER <strong>#{{ order.id }}</strong> is in the works. <br>
+            Your order <strong>#{{ order.id }}</strong> is in the works. <br>
             <div class="container container-success-inside">
             <div class="estimated-arrival">
             <i class="fa-regular fa-calendar" style="color: black;"></i> Estimated arrival: {{ first_estimated_arrival|date:"F j, Y" }} - {{ last_estimated_arrival|date:"F j, Y" }}  <br> 

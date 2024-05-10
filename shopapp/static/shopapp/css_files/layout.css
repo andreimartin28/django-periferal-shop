@@ -30,3 +30,46 @@ img.the-logo {
 .icons {
     color: black;
 }
+
+
+@media only screen and (max-width: 800px){
+    .individual-card-col {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    div.row-2 {
+        margin-bottom: 4em;
+    }
+}
+
+@media only screen and (min-width: 801px){
+    .individual-card-col {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    div.row-2 {
+        margin-bottom: 4em;
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+}
+
+@media only screen and (min-width: 1201px){
+    .individual-card-col {
+        flex: 1 0 30%;
+        width: 33%;
+        min-height:80%;
+    }
+
+    div.row-2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        margin-bottom: 4em;
+        margin-left: 4em;
+        margin-right: 4em;
+    }
+}

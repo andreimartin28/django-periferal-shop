@@ -1,20 +1,13 @@
 <style>
 
-    div.row-2 {
-        border: 2px solid #f1f1f1;
-        background-border: #f1f1f1;
-        margin-bottom: 4em;
-        margin-left: 4em;
-        margin-right: 4em;
-    }
-
     .individual-card {
-        border: 3px solid #f1f1f1;
+        display: flex;
         margin-bottom: 1em;
     }
 
     .card {
-        border: 3px solid #f1f1f1;
+        display: flex;
+        flex-direction: column;
         box-sizing:border-box;
         border-radius: 15px;
         height: 100%;
@@ -26,42 +19,83 @@
         border-radius: 15px;
     }
 
-
-    .card-image {
-        border: 3px solid #f1f1f1;
-    }
-
     .product-image {
+        display: flex;
         box-sizing:border-box;
         object-fit: contain;
-        height: 60%;
+        max-height: 100%;        
+        max-width: 100%;
         border-radius: 15px;
+        padding: 15px;
+    }
+
+    .container-image {
+        display: flex;
+        flex: 0 0 60%;
+        align-content: center;
+        min-height: 60%;
+        justify-content: center;
+        align-items: center;
     }
 
     .card-body {
-        border: 3px solid white;
+        display: flex;
+        flex: 0 0 40%;
+        flex-direction: column;
+        max-width: 100%;
+        max-height: 100%;
         box-sizing:border-box;
         object-fit: contain;
         text-align: center;
-        height: 40%;
         border-radius: 15px;
-    }
-
-    .container-card {
-        border: 3px solid white;     
         box-sizing:border-box;
-        height: 100%
     }
 
-    .card-title {
-        height: 45%;
-        padding-top: 10%;
+    .container-card-title {
+        display: flex;
+        flex: 0 0 50%;
+        max-height: 100%;
+        min-width: 100%;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h5.card-title {
         color: black;
+        margin: auto;
+        align-self: center;
+    }
+ 
+    .container-card-text {
+        display: flex;
+        flex: 0 0 20%;
+        min-width: 100%;
+        max-height: 100%;
+        justify-content: center;
+        align-items: center;
     }
 
     .container-add-to-cart {
-        height: 55%;
-        padding-bottom: 20%;
+        display: flex;
+        flex: 0 0 30%;
+        min-width: 100%;
+        padding: 5px;
+    }
+
+    #menu-cart-button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to right, #4a60c1 10%, #3985e0);
+        -webkit-transition: background-position 1s;
+        -moz-transition: background-position 1s;
+        transition: background-position 1s;
+    }
+    
+    #menu-cart-button:hover {
+        background: linear-gradient(to right, #35863f 10%, #4d9f4e);
+        background-position: 0 -100%;
     }
 
 </style>
@@ -69,34 +103,41 @@
 
 <div class="row row-2">
     {% for product in products %}
-        <div class="col-12 col-md-3 individual-card">
+        <div class="col-12 individual-card-col individual-card">
           
             <div class="card">
-                <img class="product-image" src="{{ product.image.url }}"/>
+
+                <div class="container container-image">
+                    <img class="product-image" src="{{ product.image.url }}"/>
+                </div>
+
                 <div class="container card-body">
                 
-                <div class="container container-card">
-                <h5 class="card-title">
-                    <a class="card-title" href="{% url 'product' slug=product.slug %}">{{ product.brand }} {{ product.name }}</a>
-                </h5>
+                    <div class="container container-card-title">
+                        <h5 class="card-title">
+                            <a class="card-title" href="{% url 'product' slug=product.slug %}">{{ product.brand }} {{ product.name }}</a>
+                        </h5>
+                    </div>
+                
+                
+                    <div class="container container-card-text">
+                        <p class="card-text">{{ product.price }} {{product.currency}}</p>
+                    </div>
 
-                <div class="container-add-to-cart">
-                
-                <p class="card-text">{{ product.price }} {{product.currency}}</p>
-                
-                <a href="#" 
-                id="menu-cart-button" 
-                class="w-100 btn btn-lg btn-primary add-button"
-                hx-get="{% url "add_to_cart" product.id %}"
-                hx-target="#menu-cart-button"
-                hx-swap="outerHTML">
-                Add to Cart
-                </a>
+                    <div class="container-add-to-cart">
+                    
+                        <a href="#" 
+                        id="menu-cart-button" 
+                        class="w-100 btn btn-primary add-button"
+                        hx-get="{% url "add_to_cart" product.id %}"
+                        hx-target="#menu-cart-button"
+                        hx-swap="outerHTML">
+                        Add to Cart
+                        </a>
+                    </div>
                 </div>
-                </div>
-                </div>
-            
             </div>
+            
     
         </div>
     {% endfor %}
