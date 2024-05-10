@@ -1,0 +1,32 @@
+a {
+    text-decoration: none;
+  }
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.container-2 {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+} 
+
+img.the-logo {
+    width: 150px;
+}
+
+.myaccount {
+    position: absolute;
+    margin-right: 4.6rem;
+}
+
+.icons {
+    color: black;
+}

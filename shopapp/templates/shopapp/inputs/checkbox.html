@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+
+<label class="form-check form-switch {% if field.field.required %} required {% endif %}">
+    {{ field.label }}
+    {% render_field field|add_error_class:"is-invalid"|add_class:"form-check-input" %}
+</label>
+
+{% if field.errors %}
+
+<div class="invalid-feedback">
+    {% for error in field.errors %}
+        {{error}}
+    {% endfor %}
+</div>
+
+{% endif %}

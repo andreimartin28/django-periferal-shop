@@ -1,0 +1,279 @@
+{% extends "shopapp/layout.html" %}
+
+
+{% block head %}
+
+<style>
+
+.product-page {
+    border: 3px solid #f1f1f1;
+    background-color: #f1f1f1;
+    padding-bottom: 80px;
+}
+
+.container-product {
+    background-color: white;
+    border: 3px solid #f1f1f5;
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 15px;
+}
+
+.container-product-name-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: flex-start;
+    border-radius: 15px;
+    padding-bottom: 50px;
+}
+
+.product-image {
+    max-height: 500px;
+}
+
+.product-detail {
+    background-color: white;
+    border-left: 3px solid #f1f1f5;
+    width:50%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.product-name {
+    margin-top: 44px;
+}
+
+.product-price {
+    margin-top: 200px;
+}
+
+.product-rating {
+    border: 3px solid green;
+}
+
+.product-add-to-cart {
+    margin-top: 20px;
+}
+
+.back-to-shop {
+    margin-top: 20px;
+}
+
+.container-product-description {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.container-description { 
+    background-color: white;
+    border: 3px solid #f1f1f5;
+    font-size: 15px;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 15px;
+}
+
+.container-review {
+    border: 3px solid #f1f1f5;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background-color: white;
+
+}
+
+.container-rating-comments {
+    border: 3px solid #f1f1f5;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 15px;
+}
+
+.container-comment-section {
+    border: 3px solid #f1f1f5;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 15px;
+}
+
+input.title {
+    width: 830px;
+    height: 30px;
+    padding-left: 5px;
+    border-radius: 4px;
+}
+
+textarea.content {
+    width: 830px;
+    height: 80px;
+    padding-left: 5px;
+    border-radius: 4px;
+}
+</style>
+
+{% endblock head %}
+
+
+{% block title %}
+
+{{ product.brand }}
+{{ product.name }}
+
+{% endblock title %}
+
+
+{% block content %}
+<div class="product-page">
+  
+    <div class="container container-product">
+  
+        <div class="container container-product-name-image">
+            
+            <div class="product-name">
+            <h4>{{ product.brand }} {{ product.name }}</h4>
+            {% if product.get_rating > 0 %}
+            <p class="text-center">Rating: {{ product.get_rating }} / 5</p>
+            {% endif %}
+            </div>
+            
+            <div class="product-image">
+            <img class="product-image" src="{{ product.image.url }}" alt="{{ product.image }}">
+            </div>
+  
+        </div>
+   
+        <div class="product-detail">
+    
+        <div class="product-price">
+        <h4>{{ product.price }} {{ product.currency }}</h4>
+        </div>
+    
+        <div class="product-add-to-cart">
+        <a id="menu-cart-button" 
+            class="btn btn-primary"
+            hx-get="{% url "add_to_cart" product.id %}"
+            hx-target="#menu-cart-button"
+            hx-swap="outerHTML">
+        Add to Cart
+        </a>
+        </div>    
+    
+        <div class="back-to-shop">
+        <a class="text-body" href="{% url "starting_page" %}">
+            <i class="fas fa-long-arrow-alt-left me-2"></i>
+            Back to shop
+        </a>
+        </div>
+        
+        </div>
+</div>
+        
+<div class="container container-product-description">
+    <div class="container container-description">
+          <h4>About this product:</h4>
+        {{ product.description }}
+    </div>
+    
+<br>
+
+
+    <div class="container container-review">
+
+        <h3>Reviews</h3> 
+
+
+        
+        
+        {% if product.reviews.all %}
+            {% for review in product.reviews.all %}
+            <div class="container container-comment-section">
+                <img class="rounded-circle account-img" style="width:50px; height:50px;" src="{{ review.created_by.profile.image.url }}"> {{ review.created_by }}<br>
+                <strong>Rating:</strong> {{ review.rating }} / 5 
+                {% if review.title == ''%}
+                <br>
+                {% else %}
+                <strong>{{ review.title }}</strong> <br>
+                {% endif %}
+                {{ review.content }} <br> 
+                Reviewed on {{ review.created_at|date }} <br>
+            </div>
+            {% endfor %}
+
+        {% else %}
+
+            {% if not user.is_authenticated %}
+            <div>
+                <span>There are no reviews made for this product.</span> 
+                <br>
+                <span>Log In and be the first to give one!</span>
+            </div>
+            {% else %}
+            <span>There are no reviews made for this product.</span> 
+            <br>
+            <span> If you own this product, we would be happy if you would write a review!</span>
+            {% endif %}
+
+        {% endif %}
+
+
+        {% if request.user.is_authenticated %}
+        <div class="container container-rating-comments">
+
+            <form method="POST" action=".">
+                {% csrf_token %}
+        
+                <label>Rating</label><br>
+                <label for="rating1">1</label>
+                <input type="radio" id="rating1" name="rating" value="1">
+                <label for="rating2">2</label>
+                <input type="radio" id="rating2" name="rating" value="2">
+                <label for="rating3">3</label>
+                <input type="radio" id="rating3" name="rating" value="3" checked>
+                <label for="rating4">4</label>
+                <input type="radio" id="rating4" name="rating" value="4">
+                <label for="rating5">5</label>
+                <input type="radio" id="rating5" name="rating" value="5">
+                <br>
+                
+                <label>Title: <span>(optional)</span></label><br>
+                <input class="title" name="title" id="title" placeholder="Enter a headline for your review"></input>
+                <br>
+
+                <label>Review:</label>
+                <br>
+                <textarea class="content" name="content" id="content" rows="4" placeholder="Share your thoughts with other customers about this product"></textarea>
+
+                <br>
+                <button class="btn btn-primary" type="submit">Add Review</button>
+            </form>
+        </div>
+        {% endif %}
+
+</div>
+
+</div>
+
+</div>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

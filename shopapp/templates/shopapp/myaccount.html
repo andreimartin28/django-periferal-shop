@@ -1,0 +1,165 @@
+{% extends "shopapp/layout.html" %}
+
+{% block head %}
+<style>
+
+.main {
+    background-color: #f1f1f1;
+}
+
+.container-profile {
+    border: 3px solid #f1f1f1;
+    display: grid;
+    width: 100%;
+    justify-items: center;
+}
+.container-profile-inside{
+    border:3px solid #f1f1f5;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background-color:white;
+    border-radius: 15px;
+}
+
+.container-photo {
+    border: 3px solid white;
+    display:grid;
+    justify-items: center;
+}
+
+.container-details {
+    display: grid;
+    justify-items: center;
+}
+
+.container-my-orders-outside {
+    border: 3px solid #f1f1f1;
+    margin-top: 15px;
+}
+
+.container-my-orders-inside {
+    border: 3px solid #f1f1f5;
+    background-color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.container-order-text {
+    margin-top: 20px;
+    border: 3px solid white;
+    margin-bottom: -40px;
+}
+
+.container-order {
+    border: 3px solid #f1f1f5;
+    border-radius: 15px;
+    display: flex;
+    margin-bottom: 1.5em;
+}
+
+.container-order-number {
+    border: 3px solid white;
+}
+
+.container-product-enumeration {
+    border: 3px solid white;
+}
+
+.container-product-entity{
+    border: 3px solid white;
+    border-bottom: 2px solid #f1f1f5;
+    border-left: 2px solid #f1f1f5;
+}
+
+.container-products-total {
+    border: 3px solid white;
+    border-left: 2px solid #f1f1f5;
+}
+
+.h2-profile{
+    text-align: center;
+    margin-top: 0.3rem;
+}
+
+.edit-account{
+    margin-bottom: 0.5rem;
+}
+
+</style>
+{% endblock head %}
+
+{% block title %}
+My Account
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="main">
+ 
+<!-- the big div -->
+    <!-- div containing profile data -->
+    <div class="container container-profile">
+        <div class="container-profile-inside">
+        <h2 class="h2-profile">Your Profile</h2>
+            
+        <div class="container container-photo"> 
+            <img class="rounded-circle account-img" style="width:250px; height:250px;" src="{{ user.profile.image.url }}">
+            </div>
+        
+            <div class="container container-details">
+            Username : {{ user.username }}
+            <br>
+            Email : {{ user.email }}
+            <br>
+            First name: {{ user.first_name }}
+            <br>
+            Last name : {{ user.last_name }}
+            <br>
+            Phone number : {{ user.phone_number }}
+            <br>
+            <br>
+            <a class="btn btn-primary edit-account" href="{% url 'edit_myaccount' %}">Edit Account</a>
+            <!-- end of container details -->    
+        </div>
+        </div>
+            <!-- end of container profile-->
+    </div>
+
+    <!-- My orders -->
+    <div class="container container-my-orders-outside">
+    
+    <div class="container container-my-orders-inside">
+    <div class="container container-order-text">
+    <h2>My orders</h2>
+    </div>
+    <br>
+    <br>
+    {% for order in request.user.orders.all %}
+        <div class="container container-order">
+            <div class="container container-order-number">
+            Order #{{ order.id }}
+            </div>
+
+            <div class="container container-product-enumeration">
+            {% for item in order.items.all %}
+            <div class="container container-product-entity">
+            {{ item.product.brand }} {{ item.product.name }}
+            <p> X {{ item.quantity }}</p>
+            <p>{{ item.get_total_price }} EURO</p>
+            </div>
+            {% endfor %}
+            </div>
+
+
+            <div class="container container-products-total">
+            <p class="text-lg">Order Date: {{ order.created_at }}</p>
+            <p class="text-lg">Total Paid: {{ order.get_total_price }} EURO</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock content %}

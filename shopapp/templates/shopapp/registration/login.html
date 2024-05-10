@@ -1,0 +1,79 @@
+{% extends 'shopapp/layout.html' %}
+{% load widget_tweaks %}
+
+{% block head %}
+<style>
+
+  .login-borders {
+    border: 3px solid #f1f1f1;
+    background-color: #f1f1f1;
+  }
+
+  .container-login-outside {
+    border: 3px solid #f1f1f2;
+    background-color: white;
+    margin-top: 4em;
+    margin-bottom: 4em;
+    border-radius: 15px;
+  }
+  
+  .container-login-inside{
+    border: 3px solid white;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  .login-button {
+    margin-top: 0.4em;
+  }
+
+</style>
+{% endblock head %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+
+<div class="login-borders">
+<div class="align-center col-8 offset-2">
+<div class="container container-login-outside">
+<div class="container container-login-inside">
+
+
+  <legend class="border-bottom mb-4">
+  Login
+  </legend>
+  
+  <fieldset class="form-group">
+  <form method="POST" action="{% url 'login' %}" autocomplete="off">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>{{ form.username.label }}</label>
+            {% render_field form.username class="form-control" %}
+        </div>
+  
+        <div class="form-group">
+            <label>{{ form.password.label }}</label>
+            {% render_field form.password class="form-control" %}
+        </div>
+
+  </fieldset>
+  <div class="login-button">
+  <button type="submit" class="btn btn-primary"> Login </button>
+  </div>
+</form>
+  
+  <div class="border-top pt-3">
+        <small class="text-muted">
+            Don't Have An Account? <a class="ml-2" href="{% url "register" %}">Register here</a>
+        </small>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

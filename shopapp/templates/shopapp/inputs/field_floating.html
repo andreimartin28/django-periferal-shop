@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+
+<div class="form-floating">
+    {% render_field field|add_error_class:"is-invalid"|add_class:"form-control" placeholder=field.label %}
+    {{field.label_tag}}
+</div>
+
+<span class="text-muted">{{field.help_text}}</span>
+
+{% if field.errors %}
+
+<div class="invalid-feedback">
+    {% for error in field.errors %}
+        {{error}}
+    {% endfor %}
+</div>
+
+{% endif %}

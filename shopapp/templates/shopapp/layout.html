@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">    
+    <link rel="stylesheet" href="{% static "/shopapp/css/bootstrap5.css" %}">
+    <link rel="stylesheet" href="{% static "/shopapp/css/bootstrap.css.map" %}">
+    <link rel="stylesheet" href="{% static "/shopapp/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "/shopapp/css/bootstrap.min.css.map" %}">
+    <link rel="stylesheet" href="{% static "/shopapp/css_files/layout.css" %}">
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    {% block head %}
+    {% endblock head %}
+    <title>
+      {% block title %}
+      {% endblock title %} | Periferal
+    </title>
+  </head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+  <!--Header-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white" style="border: 3px solid white;">
+
+    <!-- the div that contains the logo, the account and the cart -->
+    <div class="nav-container container-1">
+    
+      <!--Logo-->
+    <a class="the-logo" href="{% url 'starting_page' %}">
+        <img class="the-logo" src="{% static 'periferal.png' %}" alt="Logo">
+    </a>
+
+    <!-- the div that contains just the account and the cart-->
+    <div class="nav-container container-2"> 
+
+      <!-- Profile image and the dropdown links affiliated -->
+      <ul class="navbar-nav myaccount">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if not user.is_authenticated %}
+            <iconify-icon icon="ri:account-box-line" width="45" height="45" class="icons">Account</iconify-icon>
+            {% else %}
+            <img class="rounded-circle account-img" style="margin-top:-3px;"  width="45px" height="45px" class="icons" src="{{ user.profile.image.url }}">
+            {% endif %}
+          </a>
+          <ul class="dropdown-menu">
+            {% if not user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'myaccount' %}">My Account</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
+    
+      <!-- the cart icon -->
+      <div class="the-cart"
+           hx-get="{% url 'hx_menu_cart' %}"
+           hx-trigger="update-menu-cart from:body"
+           hx-swap="innerHTML">
+        {% include "shopapp/cart/menu_cart.html" %}
+      </div>
+
+    <!-- the end of the div that contains just the account and the cart-->
+    </div>
+
+    <!-- the end of the div that contains the logo, account and cart -->   
+    </div>
+    
+  </nav>
+  <!-- END Header-->
+
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+    {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<!--Main-->
+{% block content %}
+{% endblock content %}
+<!--Main-->
+<div class="footer">
+
+<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+</section>
+
+<br>
+
+<footer class="text-black">
+  <div class="container container-footer">
+  <!-- Footer -->
+   <!-- Section: Links  -->
+    <div class="row row-footer">
+    
+      <div class="col-md-4">
+        <h5 class="contact">Contact us</h5>
+        <p><i class="fa-solid fa-location-dot"></i> Our Address: <a class="address" href="https://www.openstreetmap.org/?mlat=44.41607&mlon=26.11085#map=19/44.41607/26.11085&layers=N">Bulevardul Gheorghe Sincai nr. 15, Bucuresti</a> </p>
+        <p><i class="fa fa-phone"></i> Phone: +40728991999</p>
+        <p><i class="fa fa-fax"></i> Fax: 32121421 </p>
+        <p><i class="fa fa-envelope"></i> Email: <a class="mail" href="mailto:andrei.martin28@outlook.com">andrei.martin28@outlook.com</a> </p>
+      </div>
+              
+      <div class="col-md-4">
+          <h5 class="socials">Follow us on</h5>
+          <br>
+          <ul class="list-inline">
+              <li class="list-inline-item"><a href="https://www.facebook.com/" class="text-dark"><i class="fab fa-facebook fa-2xl"></i></a></li>
+              <li class="list-inline-item"><a href="https://www.instagram.com/" class="text-dark"><i class="fab fa-instagram fa-2xl"></i></a></li>
+              <li class="list-inline-item"><a href="https://www.twitter.com/" class="text-dark"><i class="fab fa-x-twitter fa-2xl"></i></a></li>
+              <li class="list-inline-item"><a href="https://www.youtube.com/" class="text-dark"><i class="fab fa-youtube fa-2xl"></i></a></li>
+
+              <!-- Add more social icons as needed -->
+          </ul>
+      </div>
+            
+      <div class="col-md-4">
+      <h5 class="location">Location</h5>
+      <iframe width="300" height="200" src="https://www.openstreetmap.org/export/embed.html?bbox=26.10959887504578%2C44.41542304344635%2C26.112109422683716%2C44.41671623453382&amp;layer=mapnik&amp;marker=44.416069642564956%2C26.110854148864746" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=44.41607&amp;mlon=26.11085#map=19/44.41607/26.11085&amp;layers=N">View Larger Map</a></small>
+      </div>
+      <br>
+        <p class="center">&copy; 2024. All rights reserved. </p>
+    </div>
+ <!-- END Footer -->
+</div>
+</footer>
+</div>
+
+ <script src="{% static "shopapp/js/bootstrap5.js" %}"></script>
+ <script src="{% static "shopapp/js/htmx.js" %}"></script>
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+
+ {% block scripts %}
+ {% endblock scripts %}
+
+</body>
+</html>

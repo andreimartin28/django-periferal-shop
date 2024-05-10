@@ -1,0 +1,70 @@
+{% extends "shopapp/layout.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block head %}
+<style>
+
+
+div.edit-account {
+    border: 3px solid #f1f1f1;
+    background-color: #f1f1f1;
+}
+
+h1.edit-account-text {
+    text-align: center;
+}
+
+.container-edit-account-outside {
+    border: 3px solid #f1f1f2;
+    background-color: white;
+    margin-top: 4em;
+    margin-bottom: 4em;
+    border-radius: 15px;
+}
+
+.container-edit-account-inside {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+
+</style>
+{% endblock head %}
+
+{% block title %}
+Edit account
+{% endblock title %}
+
+
+
+
+{% block content %}
+<div class="edit-account">
+<div class="align-center col-8 offset-2">
+<div class="container container-edit-account-outside">
+<div class="container container-edit-account-inside">
+<h1 class="edit-account-text">Edit account</h1>
+<hr>
+<form method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">
+            Profile Info
+        </legend>
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+    </fieldset>
+    
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

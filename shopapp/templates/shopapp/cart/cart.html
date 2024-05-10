@@ -1,0 +1,76 @@
+{% extends "shopapp/layout.html" %}
+
+{% block head %}
+<style>
+	.container-shopping {
+		margin-top: 4.5em;
+		padding-bottom: 4.6em;	}
+</style>
+{% endblock head %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+	<section class="h-100 h-custom" style="background-color: #white; border:3px solid #f1f1f1; background-color:#f1f1f1;">
+		<div class="container h-100 container-shopping">
+		  <div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-12">
+			  <div class="card card-registration card-registration-2" style="border: 3px solid #f1f1f1; border-radius: 15px;">
+				<div class="card-body p-0">
+				  <div class="row g-0">
+					<div class="col-lg-8">
+					  <div class="p-5">
+						<div class="d-flex justify-content-between align-items-center mb-5" >
+						  <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+						</div>
+						<hr class="my-4">
+						{% if cart %}
+							{% for item in cart %}
+								{% include 'shopapp/partials/cart_item.html' %}
+							{% endfor %}
+						<div class="pt-5" >
+							<a class="text-body" href="{% url "starting_page" %}">
+								<i class="fas fa-long-arrow-alt-left me-2"></i>
+								Back to shop
+							</a>
+						</div>
+					  </div>
+					</div>
+					<div class="col-lg-4 bg-grey" style="border-left: 3px solid #f1f1f5;">
+					  <div class="sticky-top">
+						<h3 class="fw-bold mt-5 pt-1" style="border: 3px solid white; text-align: center;">Summary</h3>
+						<div class="d-flex justify-content-center mb-4 gap-3" style="border: 3px solid white; text-align: center;">
+							<h5>Total:</h5>
+							<h5 hx-get="{% url 'hx_cart_total' %}"
+							   hx-trigger = "update-menu-cart from:body"
+								 hx-swap="innerHTML">
+							 {% include 'shopapp/partials/cart_total.html' %} 
+						   </h5>
+						</div>
+
+						<div class="d-flex justify-content-center mb-2">	
+						<a href="{% url 'checkout' %}"><button type="button" class="btn btn-primary btn-lg btn-block"
+						  data-mdb-ripple-color="dark">Checkout</button></a>
+						</div>
+						{% else %}
+							Your cart is empty
+							<br>
+							<div class="pt-5">
+								<a class="text-body" href="{% url "starting_page" %}">
+									<i class="fas fa-long-arrow-alt-left me-2"></i>
+									Back to shop
+								</a>
+							</div>
+						{% endif %}
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </section>
+{% endblock content %}

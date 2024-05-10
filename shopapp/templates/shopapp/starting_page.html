@@ -1,0 +1,111 @@
+{% extends "shopapp/layout.html" %} 
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block head %}
+
+<style>
+
+    main {
+        border: 3px solid #f1f1f1;
+        background-color: #f1f1f1;
+    }
+
+    #productsHolder {
+        background-color: #f1f1f1;
+    }
+
+    .products_holder {
+        border: 3px solid #f1f1f1;
+        margin-top: 2em;
+    }
+
+    .container-a {
+        border: 3px solid #f1f1f1;
+    }
+
+    .container-b {
+        border: 3px solid #f1f1f1;
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .container-c {
+        border: 3px solid #f1f1f1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem; 
+        margin-top: 0.5rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .filter {
+        text-align: start;
+    }
+    
+</style>
+
+{% endblock head %}
+
+{% block content %}
+<main>
+  <form hx-get="{% url 'render_products_list' %}"
+        hx-swap="innerHTML"
+        hx-target="#productsHolder"
+        hx-trigger="input">
+    
+    <div class="container container-a">
+
+            <div class="container container-b">
+            <div class="searchbar">
+                <!-- here is the search engine for 
+                    typing a product made with HTMX -->
+                <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                name="search"
+                />
+            </div>
+            </div>
+
+            <div class="container container-c">
+
+            <div class="filter filter-categories">
+            <label>Categories</label>
+            <!-- we display the category names from the database -->
+            <select name="category" id="category_select" class="form-select">
+                <option value="">All</option>
+                {% for category in categories %}
+                <option value="{{category.id}}">{{category.name}}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+            <div class="filter filter-brands">
+            <label>Brands</label>
+            <!-- here we display the brand names from the database -->
+            <select name="brand" id="brand_select" class="form-select">
+                <option value="">All</option>
+                {% for brand in brands %}
+                <option value="{{ brand }}">{{ brand }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+
+        </div>
+    
+    </div>
+
+</form>
+    <!-- here we display the html with products table from the database 
+        with all the columns necessary to be shown for presentation -->
+    <div class="products_holder" id="productsHolder">
+        {% include 'shopapp/partials/products_list.html' %}
+    </div>
+</main>
+{% endblock content %}

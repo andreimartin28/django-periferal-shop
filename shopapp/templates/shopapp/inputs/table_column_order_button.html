@@ -1,0 +1,47 @@
+{% if col in order_by %}
+
+    {% if '-' in order_by %}
+    
+    <a href="#!"
+       hx-get="{{url}}" 
+       hx-swap="innerHTML" 
+       hx-target="#tableHolder" 
+       hx-include=".filterForm, #table_head" 
+       hx-vals='{"order_by": "{{col}}"}'
+    >
+        
+       <i class="ti ti-sort-descending"></i>
+    
+    </a>
+    
+    {% else %}
+    
+    <a href="#!"
+       hx-get="{{url}}" 
+       hx-swap="innerHTML" 
+       hx-target="#tableHolder" 
+       hx-include=".filterForm, #table_head" 
+       hx-vals='{"order_by": "-{{col}}"}'
+    >
+    
+        <i class="ti ti-sort-ascending"></i>
+    
+    </a>
+    
+    {% endif %}
+
+{% else %}
+
+<a href="#!"
+   hx-get="{{url}}" 
+   hx-swap="innerHTML" 
+   hx-target="#tableHolder" 
+   hx-include=".filterForm, #table_head" 
+   hx-vals='{"order_by": "{{col}}"}'
+>
+
+    <i class="ti ti-arrows-sort"></i>
+
+</a>
+
+{% endif %}

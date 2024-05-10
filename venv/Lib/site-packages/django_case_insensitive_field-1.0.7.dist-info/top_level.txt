@@ -1,0 +1,1 @@
+django_case_insensitive_field

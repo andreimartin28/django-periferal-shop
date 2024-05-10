@@ -1,0 +1,25 @@
+{% load widget_tweaks %}
+
+<label class="form-label {% if field.field.required %}required{% endif %}">
+    {{field.label_tag}}
+</label>
+
+{% for choice in field.field.choices %}
+    <div class="form-selectgroup mb-2">
+        <label class="form-selectgroup-item">
+            <input type="checkbox" name="{{field.name}}" value="{{choice.0}}" 
+                class="form-selectgroup-input" {% if choice.1 in checked %}checked{% endif %}>
+            <span class="form-selectgroup-label">{{choice.1}}</span>
+        </label>
+    </div>
+{% endfor %}
+
+{% if field.errors %}
+    
+    <div class="invalid-feedback">
+        {% for error in field.errors %}
+            {{error}}
+        {% endfor %}
+    </div>
+
+{% endif %}

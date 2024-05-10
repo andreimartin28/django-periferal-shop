@@ -1,0 +1,93 @@
+{% extends "shopapp/layout.html" %}
+{% load widget_tweaks %}
+
+{% block head %}
+<style>
+    .register-borders{
+        border: 3px solid #f1f1f1;
+        background-color: #f1f1f1;
+    }
+
+    .container-register-outside {
+        border: 3px solid #f1f1f2;
+        background-color: white;
+        margin-top: 4em;
+        margin-bottom: 4em;
+        border-radius: 15px;
+    }
+    .container-register-inside {
+        border: 3px solid white;
+        background-color: white;
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+    
+    .register-button {
+        margin-top: 0.4em;
+    }
+
+</style>
+{% endblock head %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block content %}
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="register-borders">
+        <div class="align-center col-8 offset-2">
+        <div class="container container-register-outside">
+        <div class="container container-register-inside">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                Join Today
+            </legend>
+            <div class="form-group mb-3">
+                <label>{{ form.email.label_tag }}</label>
+                {% render_field form.email hx-post="/check-email/" hx-swap="outerhtml" hx-target="#email-error" hx-trigger="keyup throttle:1s" class="form-control" %}
+                {{ form.email.errors }}
+                <div class="text-danger mt-2" id="email-error"></div>
+            </div>
+            <div class="form-group mb-3">
+                <label>{{ form.username.label_tag }}</label>
+                {% render_field form.username hx-post="/check-username/" hx-swap="outerhtml" hx-target="#username-error" hx-trigger="keyup throttle:1s" class="form-control" %}
+                {{ form.username.errors }}
+                <div class="text-danger mt-2" id="username-error"></div>
+            </div>
+            <div>
+                <label>{{ form.password1.label_tag }}</label>
+                {% render_field form.password1 class="form-control" %}
+                {{ form.password1.errors }}
+            </div>
+            <div>
+                <label>{{ form.password2.label_tag }}</label>
+                {% render_field form.password2 class="form-control" %}
+                {{ form.password2.errors }}
+    
+            </div>
+        </fieldset>
+        <div class="register-button">
+        <div class="form-group">
+            <button class="btn btn btn-primary" type="submit">Register</button>
+        </div>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted"> 
+            Already Have An Account? 
+            <a class="ml-2" href="{% url "login" %}">Sign In</a>
+        </small>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}
+
+
+
+   
