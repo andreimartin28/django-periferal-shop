@@ -33,6 +33,14 @@ img.the-logo {
 
 
 @media only screen and (max-width: 800px){
+
+    .dropdown {
+        position: absolute;
+        width: 100%;
+        right: 4em;
+        top: -2em;
+    }
+
     .individual-card-col {
         flex: 0 0 auto;
         width: 100%;
