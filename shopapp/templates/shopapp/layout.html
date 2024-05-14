@@ -78,14 +78,15 @@
 
   </nav>
   <!-- END Header-->
-  {% if messages %}
+ 
+{% if messages %}
   {% for message in messages %}
     <div class="alert alert-{{ message.tags }}"
          style="margin-bottom: 0;">
       {{ message }}
   </div>
   {% endfor %}
-  {% endif %}
+{% endif %}
  
 
 
