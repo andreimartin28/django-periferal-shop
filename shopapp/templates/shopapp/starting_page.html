@@ -86,7 +86,7 @@ Welcome
             <select name="brand" id="brand_select" class="form-select">
                 <option value="">All</option>
                 {% for brand in brands %}
-                <option value="{{ brand }}">{{ brand }}</option>
+                <option value="{{ brand.id }}">{{ brand.name }}</option>
                 {% endfor %}
             </select>
             </div>

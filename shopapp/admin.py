@@ -1,39 +1,30 @@
 from django.contrib import admin
-from .models import Category, Product, User, Profile, Order, OrderItem, Review
+from .models import Brand, Color, Currency, Category, Product, User, Profile, Order, OrderItem, Review
 
 # Models
 
 
-class ReviewsAdmin(admin.ModelAdmin):
-    list_display = (
-        "product", "rating", "content", "created_by", "created_at"
-    )
-
-
-class CategoryAdmin(admin.ModelAdmin):
+class BrandAdmin(admin.ModelAdmin):
     list_display = (
         "name", "slug"
     )
 
 
-class ProductAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = (
-        "name", "brand", "category",
-        "color", "price"
+        "name", "slug",
     )
 
-    list_filter = (
-        "category", "brand", "color"
+
+class ColorAdmin(admin.ModelAdmin):
+    list_display = (
+        "name", "slug"
     )
 
-    prepopulated_fields = {
-        "slug": ("name",)
-    }
 
-
-class ProfileAdmin(admin.ModelAdmin):
+class CurrencyAdmin(admin.ModelAdmin):
     list_display = (
-        "user", "image"
+        "name", "slug"
     )
 
 
@@ -61,8 +52,33 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
 
 
+class ProductAdmin(admin.ModelAdmin):
+    list_display = (
+        "brand", "name", "category", "color", "price", "currency",
+    )
+
+    prepopulated_fields = {
+        "slug": ("name",)
+    }
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "user", "image"
+    )
+
+
+class ReviewsAdmin(admin.ModelAdmin):
+    list_display = (
+        "product", "rating", "content", "created_by", "created_at",
+    )
+
+
 admin.site.register(User)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Brand, BrandAdmin)
+admin.site.register(Color, ColorAdmin)
+admin.site.register(Currency, CurrencyAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Order, OrderAdmin)

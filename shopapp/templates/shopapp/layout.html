@@ -63,8 +63,9 @@
     
       <!-- the cart icon -->
       <div class="cart-image"
+           id="menu-cart-button"
            hx-get="{% url 'hx_menu_cart' %}"
-           hx-trigger="update-menu-cart from:body"
+           hx-trigger="#card-button"
            hx-swap="innerHTML">
         {% include "shopapp/cart/menu_cart.html" %}
       </div>

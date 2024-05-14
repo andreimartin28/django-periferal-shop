@@ -128,10 +128,17 @@ textarea.content {
     border-radius: 4px;
 }
 
-#menu-cart-button:hover {
-    background-color: rgb(41, 171, 41);
+#card-button {
+    background: linear-gradient(to right, #4a60c1 10%, #3985e0);
+
+}
+
+#card-button:hover {
+    background: linear-gradient(to right, #35863f 10%, #4d9f4e);
     transition: 0.6s;
 }
+
+
 </style>
 
 {% endblock head %}
@@ -155,7 +162,7 @@ textarea.content {
             <div class="product-name">
             <h4>{{ product.brand }} {{ product.name }}</h4>
             {% if product.get_rating > 0 %}
-            <p class="text-center">Rating: {{ product.get_rating }} / 5</p>
+                <p class="text-center">Rating: {{ product.get_rating }} / 5</p>
             {% endif %}
             </div>
             
@@ -172,11 +179,12 @@ textarea.content {
         </div>
     
         <div class="product-add-to-cart">
-        <a id="menu-cart-button" 
+        <a id="card-button" 
             class="btn btn-primary"
             hx-get="{% url "add_to_cart" product.id %}"
+            hx-trigger="click"
             hx-target="#menu-cart-button"
-            hx-swap="outerHTML">
+            >
         Add to Cart
         </a>
         </div>    

@@ -82,19 +82,17 @@
         padding: 5px;
     }
 
-    #menu-cart-button{
+    #card-button {
         display: flex;
         justify-content: center;
         align-items: center;
         background: linear-gradient(to right, #4a60c1 10%, #3985e0);
-        -webkit-transition: background-position 1s;
-        -moz-transition: background-position 1s;
-        transition: background-position 1s;
+
     }
     
-    #menu-cart-button:hover {
+    #card-button:hover {
         background: linear-gradient(to right, #35863f 10%, #4d9f4e);
-        background-position: 0 -100%;
+        transition: 0.6s;
     }
 
 </style>
@@ -124,13 +122,13 @@
                     </div>
 
                     <div class="container-add-to-cart">
-                    
                         <a href="#" 
-                        id="menu-cart-button" 
-                        class="w-100 btn btn-primary add-button"
+                        id="card-button" 
+                        class="w-100 btn btn-primary"
                         hx-get="{% url "add_to_cart" product.id %}"
-                        hx-target="#menu-cart-button"
-                        hx-swap="outerHTML">
+                        hx-trigger="click"
+                        hx-target="#menu-cart-button">
+                        
                         Add to Cart
                         </a>
                     </div>

@@ -2,9 +2,21 @@
 
 {% block head %}
 <style>
-	.container-shopping {
-		margin-top: 4.5em;
-		padding-bottom: 4.6em;	}
+
+.container-shopping {
+	margin-top: 4.5em;
+	padding-bottom: 4.6em;	
+}
+
+.checkout {
+    background: linear-gradient(to right, #4a60c1 10%, #3985e0);
+}
+
+.checkout:hover {
+    background: linear-gradient(to right, #35863f 10%, #4d9f4e);
+    transition: 0.6s;
+}
+
 </style>
 {% endblock head %}
 
@@ -51,8 +63,7 @@ Cart
 						</div>
 
 						<div class="d-flex justify-content-center mb-2">	
-						<a href="{% url 'checkout' %}"><button type="button" class="btn btn-primary btn-lg btn-block"
-						  data-mdb-ripple-color="dark">Checkout</button></a>
+						<a href="{% url 'checkout' %}"><button type="button" class="btn btn-primary btn-lg btn-block checkout">Checkout</button></a>
 						</div>
 						{% else %}
 							Your cart is empty

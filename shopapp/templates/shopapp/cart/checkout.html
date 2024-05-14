@@ -35,6 +35,16 @@ span.price-currency {
     white-space: nowrap;
 }
 
+.checkout {
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #4a60c1 10%, #3985e0);
+}
+
+.checkout:hover {
+    background: linear-gradient(to right, #35863f 10%, #4d9f4e);
+    transition: 0.6s;
+}
+
 </style>
 {% endblock head %}
 
@@ -119,7 +129,7 @@ Checkout
                     </div>
                     <hr class="mb-4">
                     <button onclick="buy(event)"
-                            class="btn btn-primary btn-lg btn-block" 
+                            class="btn btn-primary btn-lg btn-block checkout" 
                             type="submit">Confirm checkout</button>
             </div>
         </div>

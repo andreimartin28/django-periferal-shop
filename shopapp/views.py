@@ -12,7 +12,7 @@ from django.conf import settings
 from django.http import JsonResponse
 
 
-from .models import Product, Category, Order, OrderItem, Review
+from .models import Product, Brand, Category, Order, OrderItem, Review
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from .cart import Cart
 # Create your views here.
@@ -23,8 +23,7 @@ def startingpage(request):
     products = Product.objects.all()
 
     #
-    brands = Product.objects.all().values_list(
-        'brand', flat=True).distinct().order_by()
+    brands = Brand.objects.all()
 
     categories = Category.objects.all()
 

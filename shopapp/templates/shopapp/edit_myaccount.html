@@ -29,6 +29,14 @@ h1.edit-account-text {
     margin-bottom: 2em;
 }
 
+.submit {
+    background: linear-gradient(to right, #4a60c1 10%, #3985e0);
+}
+
+.submit:hover {
+    background: linear-gradient(to right, #35863f 10%, #4d9f4e);
+    transition: 0.6s;
+}
 
 </style>
 {% endblock head %}
@@ -59,7 +67,7 @@ Edit account
     </fieldset>
     
     <div class="form-group">
-        <button class="btn btn-primary" type="submit">Update</button>
+        <button class="btn btn-primary submit" type="submit">Update</button>
     </div>
 
 </form>

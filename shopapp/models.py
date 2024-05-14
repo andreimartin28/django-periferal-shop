@@ -76,7 +76,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User,
                                 on_delete=models.CASCADE)
 
-    image = models.ImageField(default='/media/profile_pics/899048ab0cc455154006fdb9676964b3_KlMbt9h.jpg',
+    image = models.ImageField(default='/profile_pics/profile_photo_man.jpg',
                               upload_to='profile_pics',
                               help_text="Get a representative profile image.")
 
@@ -107,23 +107,54 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
 
-currency_list = [
-    ("RON", "RON"),
-    ("EURO", "EURO")
-]
+class Currency(models.Model):
+    name = models.CharField(max_length=10)
 
-color_list = [
-    ("Black", "Black"),
-    ("White", "White")
-]
+    slug = models.SlugField(null=True)
 
-brand_list = [
-    ('Logitech', 'Logitech'),
-    ('Steelseries', 'Steelseries'),
-    ('Razer', 'Razer'),
-    ('LG', 'LG'),
-    ('DELL', 'DELL'),
-]
+    def __str__(self):
+        return f"{self.name}"
+
+    class Meta:
+        verbose_name = "Currency"
+        verbose_name_plural = "Currencies"
+
+# currency_list = [
+#     ("RON", "RON"),
+#     ("EURO", "EURO")
+# ]
+
+
+class Color(models.Model):
+    name = models.CharField(max_length=100)
+
+    slug = models.SlugField(null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+# color_list = [
+#     ("black", "black"),
+#     ("white", "white")
+# ]
+
+
+class Brand(models.Model):
+    name = models.CharField(max_length=150)
+
+    slug = models.SlugField(null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+# brand_list = [
+#     ('Logitech', 'Logitech'),
+#     ('Steelseries', 'Steelseries'),
+#     ('Razer', 'Razer'),
+#     ('LG', 'LG'),
+#     ('Dell', 'Dell'),
+# ]
 
 
 class Product(models.Model):
@@ -133,8 +164,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE)
 
-    brand = models.CharField(max_length=50,
-                             choices=brand_list)
+    brand = models.ForeignKey(Brand,
+                              on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200,
                             null=False,
@@ -142,8 +173,8 @@ class Product(models.Model):
 
     slug = models.SlugField(null=True)
 
-    color = models.CharField(max_length=200,
-                             choices=color_list)
+    color = models.ForeignKey(Color,
+                              on_delete=models.CASCADE)
 
     stocks = models.IntegerField(blank=False,
                                  null=False)
@@ -151,8 +182,8 @@ class Product(models.Model):
     price = models.IntegerField(blank=False,
                                 null=False)
 
-    currency = models.CharField(max_length=50,
-                                choices=currency_list)
+    currency = models.ForeignKey(Currency,
+                                 on_delete=models.CASCADE)
 
     description = models.TextField()
 
