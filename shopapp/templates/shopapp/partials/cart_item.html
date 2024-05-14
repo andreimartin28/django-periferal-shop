@@ -1,4 +1,5 @@
 {% if item %}
+
 <div class="row mb-4 d-flex justify-content-between align-items-center" id="cart-item-{{ item.product.id }}">
     <div class="col-md-2 col-lg-2 col-xl-2">
         
@@ -36,7 +37,7 @@
     <a hx-get="{% url 'update_cart' item.product.id 'increment' %}"
        hx-target="#cart-item-{{ item.product.id }}"
        hx-swap="outerHTML">
-      
+
        <button class="btn btn-link px-2"
                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
       
@@ -55,4 +56,5 @@
     </div>
     
 </div>
+
 {% endif %}

@@ -101,7 +101,7 @@
 <div class="row row-2">
     {% for product in products %}
         <div class="col-12 individual-card-col individual-card">
-          
+
             <div class="card">
 
                 <div class="container container-image">
@@ -127,15 +127,18 @@
                         class="w-100 btn btn-primary"
                         hx-get="{% url "add_to_cart" product.id %}"
                         hx-trigger="click"
-                        hx-target="#menu-cart-button">
-                        
+                        hx-target="#menu-cart-button"
+                        >
                         Add to Cart
                         </a>
                     </div>
                 </div>
             </div>
-            
-    
+
         </div>
     {% endfor %}
+</div>
+
+<div id="modal" class="modal fade">
+    <div id="dialog" class="modal-dialog" hx-target="this"></div>
 </div>
