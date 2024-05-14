@@ -54,6 +54,7 @@ def render_products_list(request):
     if search_query:
         search_terms = search_query.split()
         for term in search_terms:
+            # Search both product name and brand name fields for each term
             products = products.filter(
                 Q(name__icontains=term) | Q(brand__name__icontains=term)
             )
