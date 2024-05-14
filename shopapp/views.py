@@ -39,34 +39,29 @@ def startingpage(request):
 
 def render_products_list(request):
     products = Product.objects.all()
+    categories = Category.objects.all()
+    brands = Brand.objects.all()
 
-    brands = Product.objects.all().values_list(
-        'brand', flat=True).distinct().order_by()
+    category_id = request.GET.get("category")
+    if category_id:
+        products = products.filter(category_id=category_id)
 
-    category = request.GET.get("category", None)
+    brand_id = request.GET.get("brand")
+    if brand_id:
+        products = products.filter(brand_id=brand_id)
 
-    if category:
-        products = products.filter(category_id=category)
-
-    brand = request.GET.get("brand", None)
-
-    if brand:
-        products = products.filter(brand=brand)
-
-    search = request.GET.get("search", None)
-
-    if search:
-        if brand:
+    search_query = request.GET.get("search")
+    if search_query:
+        search_terms = search_query.split()
+        for term in search_terms:
             products = products.filter(
-                Q(name__icontains=search) & Q(brand=brand))
-        else:
-            products = products.filter(
-                Q(name__icontains=search) | Q(brand=search))
+                Q(name__icontains=term) | Q(brand__name__icontains=term)
+            )
 
     context = {
-        'brands': brands,
         'products': products,
-        "categories": Category.objects.all()
+        'brands': brands,
+        'categories': categories
     }
 
     return render(request, 'shopapp/partials/products_list.html', context)
