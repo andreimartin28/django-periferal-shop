@@ -70,16 +70,10 @@ img.the-logo {
         margin-right: 2em;
     }
 
-    iframe[Attributes Style] {
-        width: 250;
-    }
 }
 
 /* desktop and laptop screens  */
 @media only screen and (min-width: 1201px){
-    .dropdown{
-        border: 3px solid black;
-    }
     
     .individual-card-col {
         flex: 1 0 30%;
