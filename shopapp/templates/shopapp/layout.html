@@ -44,12 +44,12 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if not user.is_authenticated %}
-            <iconify-icon icon="ri:account-box-line" width="45" height="45" class="icons">Account</iconify-icon>
+            <iconify-icon icon="ri:account-box-line" style="margin-top:-3px;" width="45" height="45" class="icons">Account</iconify-icon>
             {% else %}
             <img class="rounded-circle account-img" style="margin-top:-3px;"  width="45px" height="45px" class="icons" src="{{ user.profile.image.url }}">
             {% endif %}
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="--bs-dropdown-min-width: 8rem;">
             {% if not user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
             <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
