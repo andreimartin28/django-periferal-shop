@@ -69,6 +69,10 @@ img.the-logo {
         margin-left: 2em;
         margin-right: 2em;
     }
+
+    iframe[Attributes Style] {
+        width: 250;
+    }
 }
 
 /* desktop and laptop screens  */
