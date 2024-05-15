@@ -74,7 +74,7 @@ img.the-logo {
 
 /* desktop and laptop screens  */
 @media only screen and (min-width: 1201px){
-    
+
     .individual-card-col {
         flex: 1 0 30%;
         width: 33%;
