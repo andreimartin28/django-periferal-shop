@@ -30,50 +30,50 @@
 
     <!-- the div that contains the logo, the account and the cart -->
     <div class="nav-container container-1">
-    
+
       <!--Logo-->
-    <a class="the-logo" href="{% url 'starting_page' %}">
+      <a class="the-logo" href="{% url 'starting_page' %}">
         <img class="the-logo" src="{% static 'periferal.png' %}" alt="Logo">
-    </a>
+      </a>
 
-    <!-- the div that contains just the account and the cart-->
-    <div class="nav-container container-2"> 
+      <!-- the div that contains just the account and the cart-->
+      <div class="nav-container container-2">
 
-      <!-- Profile image and the dropdown links affiliated -->
-      <ul class="navbar-nav myaccount">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if not user.is_authenticated %}
-            <iconify-icon icon="ri:account-box-line" style="margin-top:-3px;" width="45" height="45" class="icons">Account</iconify-icon>
-            {% else %}
-            <img class="rounded-circle account-img" style="margin-top:-3px;"  width="45px" height="45px" class="icons" src="{{ user.profile.image.url }}">
-            {% endif %}
-          </a>
-          <ul class="dropdown-menu" style="--bs-dropdown-min-width: 8rem;">
-            {% if not user.is_authenticated %}
-            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{% url 'myaccount' %}">My Account</a></li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            {% endif %}
-          </ul>
-        </li>
-      </ul>
-    
-      <!-- the cart icon -->
-      <div class="cart-image"
-           id="menu-cart-button"
-           hx-get="{% url 'hx_menu_cart' %}"
-           hx-trigger="#card-button"
-           hx-swap="innerHTML">
-        {% include "shopapp/cart/menu_cart.html" %}
+        <!-- Profile image and the dropdown links affiliated -->
+        <ul class="navbar-nav myaccount">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              {% if not user.is_authenticated %}
+              <iconify-icon icon="ri:account-box-line" style="margin-top:-3px;" width="45" height="45"
+                class="icons">Account</iconify-icon>
+              {% else %}
+              <img class="rounded-circle account-img" style="margin-top:-3px;" width="45px" height="45px" class="icons"
+                src="{{ user.profile.image.url }}">
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu" style="--bs-dropdown-min-width: 8rem;">
+              {% if not user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+              {% else %}
+              <li><a class="dropdown-item" href="{% url 'myaccount' %}">My Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+
+        <!-- the cart icon -->
+        <div class="cart-image" id="menu-cart-button" hx-get="{% url 'hx_menu_cart' %}" hx-trigger="#card-button"
+          hx-swap="innerHTML">
+          {% include "shopapp/cart/menu_cart.html" %}
+        </div>
+
+        <!-- the end of the div that contains just the account and the cart-->
       </div>
 
-    <!-- the end of the div that contains just the account and the cart-->
-    </div>
-
-    <!-- the end of the div that contains the logo, account and cart -->   
+      <!-- the end of the div that contains the logo, account and cart -->
     </div>
 
   </nav>
@@ -81,10 +81,9 @@
  
 {% if messages %}
   {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}"
-         style="margin-bottom: 0;">
+    <div class="alert alert-{{ message.tags }}" style="margin-bottom: 0;">
       {{ message }}
-  </div>
+    </div>
   {% endfor %}
 {% endif %}
  
@@ -97,48 +96,59 @@
 <!--Main-->
 <div class="footer">
 
-<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-</section>
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+  </section>
 
-<br>
+  <br>
 
-<footer class="text-black">
-  <div class="container container-footer">
-  <!-- Footer -->
-   <!-- Section: Links  -->
-    <div class="row row-footer">
-    
-      <div class="col-md-4">
-        <h5 class="contact">Contact us</h5>
-        <p><i class="fa-solid fa-location-dot"></i> Our Address: <a class="address" href="https://www.openstreetmap.org/?mlat=44.41607&mlon=26.11085#map=19/44.41607/26.11085&layers=N">Bulevardul Gheorghe Sincai nr. 15, Bucuresti</a> </p>
-        <p><i class="fa fa-phone"></i> Phone: +40728991999</p>
-        <p><i class="fa fa-fax"></i> Fax: 32121421 </p>
-        <p><i class="fa fa-envelope"></i> Email: <a class="mail" href="mailto:andrei.martin28@outlook.com">andrei.martin28@outlook.com</a> </p>
-      </div>
-              
-      <div class="col-md-4">
+  <footer class="text-black">
+    <div class="container container-footer">
+      <!-- Footer -->
+      <!-- Section: Links  -->
+      <div class="row row-footer">
+
+        <div class="col-md-4">
+          <h5 class="contact">Contact us</h5>
+          <p><i class="fa-solid fa-location-dot"></i> Our Address: <a class="address"
+              href="https://www.openstreetmap.org/?mlat=44.41607&mlon=26.11085#map=19/44.41607/26.11085&layers=N">Bulevardul
+              Gheorghe Sincai nr. 15, Bucuresti</a> </p>
+          <p><i class="fa fa-phone"></i> Phone: +40728991999</p>
+          <p><i class="fa fa-fax"></i> Fax: 32121421 </p>
+          <p><i class="fa fa-envelope"></i> Email: <a class="mail"
+              href="mailto:andrei.martin28@outlook.com">andrei.martin28@outlook.com</a> </p>
+        </div>
+
+        <div class="col-md-4">
           <h5 class="socials">Follow us on</h5>
           <br>
           <ul class="list-inline">
-              <li class="list-inline-item"><a href="https://www.facebook.com/" class="text-dark"><i class="fab fa-facebook fa-2xl"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.instagram.com/" class="text-dark"><i class="fab fa-instagram fa-2xl"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.twitter.com/" class="text-dark"><i class="fab fa-x-twitter fa-2xl"></i></a></li>
-              <li class="list-inline-item"><a href="https://www.youtube.com/" class="text-dark"><i class="fab fa-youtube fa-2xl"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.facebook.com/" class="text-dark"><i
+                  class="fab fa-facebook fa-2xl"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.instagram.com/" class="text-dark"><i
+                  class="fab fa-instagram fa-2xl"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.twitter.com/" class="text-dark"><i
+                  class="fab fa-x-twitter fa-2xl"></i></a></li>
+            <li class="list-inline-item"><a href="https://www.youtube.com/" class="text-dark"><i
+                  class="fab fa-youtube fa-2xl"></i></a></li>
 
-              <!-- Add more social icons as needed -->
+            <!-- Add more social icons as needed -->
           </ul>
-      </div>
-            
-      <div class="col-md-4">
-      <h5 class="location">Location</h5>
-      <iframe width="250" height="200" src="https://www.openstreetmap.org/export/embed.html?bbox=26.10959887504578%2C44.41542304344635%2C26.112109422683716%2C44.41671623453382&amp;layer=mapnik&amp;marker=44.416069642564956%2C26.110854148864746" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=44.41607&amp;mlon=26.11085#map=19/44.41607/26.11085&amp;layers=N">View Larger Map</a></small>
-      </div>
-      <br>
+        </div>
+
+        <div class="col-md-4">
+          <h5 class="location">Location</h5>
+          <iframe width="250" height="200"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=26.10959887504578%2C44.41542304344635%2C26.112109422683716%2C44.41671623453382&amp;layer=mapnik&amp;marker=44.416069642564956%2C26.110854148864746"
+            style="border: 1px solid black"></iframe><br /><small><a
+              href="https://www.openstreetmap.org/?mlat=44.41607&amp;mlon=26.11085#map=19/44.41607/26.11085&amp;layers=N">View
+              Larger Map</a></small>
+        </div>
+        <br>
         <p class="center">&copy; 2024. All rights reserved. </p>
+      </div>
+      <!-- END Footer -->
     </div>
- <!-- END Footer -->
-</div>
-</footer>
+  </footer>
 </div>
 
  <script src="{% static "shopapp/js/bootstrap5.js" %}"></script>

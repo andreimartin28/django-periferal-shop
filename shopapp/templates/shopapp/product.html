@@ -202,161 +202,159 @@ textarea.content {
 
 {% block content %}
 <main>
-<div class="product-page">
-  
-    <div class="container container-product">
-  
-        <div class="container container-product-name-image">
-            
-            <div class="product-name">
-            <h4>{{ product.brand }} {{ product.name }}</h4>
-            {% if product.get_rating > 0 %}
-                <p class="text-center">Rating: {{ product.get_rating }} / 5</p>
-            {% endif %}
+    <div class="product-page">
+
+        <div class="container container-product">
+
+            <div class="container container-product-name-image">
+
+                <div class="product-name">
+                    <h4>{{ product.brand }} {{ product.name }}</h4>
+                    {% if product.get_rating > 0 %}
+                    <p class="text-center">Rating: {{ product.get_rating }} / 5</p>
+                    {% endif %}
+                </div>
+
+                <div class="product-image">
+                    <img class="product-image" src="{{ product.image.url }}" alt="{{ product.image }}">
+                </div>
+
             </div>
-            
-            <div class="product-image">
-            <img class="product-image" src="{{ product.image.url }}" alt="{{ product.image }}">
+
+            <div class="product-detail">
+
+                <div class="product-price">
+                    <h4>{{ product.price }} {{ product.currency }}</h4>
+                </div>
+
+                <div class="product-add-to-cart">
+                    <a id="card-button" class="btn btn-primary" hx-get="{% url "add_to_cart" product.id %}"
+                        hx-trigger="click" hx-target="#menu-cart-button" onclick="opensuccessResponse()">
+                        Add to Cart
+                    </a>
+                </div>
+
+                <div class="back-to-shop">
+                    <a class="text-body" href="{% url "starting_page" %}">
+                        <i class="fas fa-long-arrow-alt-left me-2"></i>
+                        Back to shop
+                    </a>
+                </div>
+
             </div>
-  
         </div>
-   
-        <div class="product-detail">
-        
-        <div class="product-price">
-        <h4>{{ product.price }} {{ product.currency }}</h4>
-        </div>
-    
-        <div class="product-add-to-cart">
-        <a id="card-button" 
-            class="btn btn-primary"
-            hx-get="{% url "add_to_cart" product.id %}"
-            hx-trigger="click"
-            hx-target="#menu-cart-button"
-            onclick="opensuccessResponse()"
-            >
-        Add to Cart
-        </a>
-        </div>    
-    
-        <div class="back-to-shop">
-        <a class="text-body" href="{% url "starting_page" %}">
-            <i class="fas fa-long-arrow-alt-left me-2"></i>
-            Back to shop
-        </a>
-        </div>
-        
-        </div>
-</div>
-        
-<div class="container container-product-description">
-    <div class="container container-description">
-          <h4>About this product:</h4>
-        {{ product.description|linebreaksbr }}
-    </div>
-    
-<br>
 
-
-    <div class="container container-review">
-
-        <h3>Reviews</h3> 
-
-
-        
-        
-        {% if product.reviews.all %}
-            {% for review in product.reviews.all %}
-            <div class="container container-comment-section">
-                <img class="rounded-circle account-img" style="width:50px; height:50px;" src="{{ review.created_by.profile.image.url }}"> {{ review.created_by }}<br>
-                <strong>Rating:</strong> {{ review.rating }} / 5 
-                {% if review.title == ''%}
-                <br>
-                {% else %}
-                <strong>{{ review.title }}</strong> <br>
-                {% endif %}
-                {{ review.content }} <br> 
-                Reviewed on {{ review.created_at|date }} <br>
+        <div class="container container-product-description">
+            <div class="container container-description">
+                <h4>About this product:</h4>
+                {{ product.description|linebreaksbr }}
             </div>
-            {% endfor %}
 
-        {% else %}
-
-            {% if not user.is_authenticated %}
-            <div>
-                <span>There are no reviews made for this product.</span> 
-                <br>
-                <span>Log In and be the first to give one!</span>
-            </div>
-            {% else %}
-            <span>There are no reviews made for this product.</span> 
             <br>
-            <span> If you own this product, we would be happy if you would write a review!</span>
-            {% endif %}
-
-        {% endif %}
 
 
-        {% if request.user.is_authenticated %}
-        <div class="container container-rating-comments">
+            <div class="container container-review">
 
-            <form method="POST" action=".">
-                {% csrf_token %}
-        
-                <label>Rating</label><br>
-                <label for="rating1">1</label>
-                <input type="radio" id="rating1" name="rating" value="1">
-                <label for="rating2">2</label>
-                <input type="radio" id="rating2" name="rating" value="2">
-                <label for="rating3">3</label>
-                <input type="radio" id="rating3" name="rating" value="3" checked>
-                <label for="rating4">4</label>
-                <input type="radio" id="rating4" name="rating" value="4">
-                <label for="rating5">5</label>
-                <input type="radio" id="rating5" name="rating" value="5">
+                <h3>Reviews</h3>
+
+
+
+
+                {% if product.reviews.all %}
+                {% for review in product.reviews.all %}
+                <div class="container container-comment-section">
+                    <img class="rounded-circle account-img" style="width:50px; height:50px;"
+                        src="{{ review.created_by.profile.image.url }}"> {{ review.created_by }}<br>
+                    <strong>Rating:</strong> {{ review.rating }} / 5
+                    {% if review.title == ''%}
+                    <br>
+                    {% else %}
+                    <strong>{{ review.title }}</strong> <br>
+                    {% endif %}
+                    {{ review.content }} <br>
+                    Reviewed on {{ review.created_at|date }} <br>
+                </div>
+                {% endfor %}
+
+                {% else %}
+
+                {% if not user.is_authenticated %}
+                <div>
+                    <span>There are no reviews made for this product.</span>
+                    <br>
+                    <span>Log In and be the first to give one!</span>
+                </div>
+                {% else %}
+                <span>There are no reviews made for this product.</span>
                 <br>
-                
-                <label>Title: <span>(optional)</span></label><br>
-                <input class="title" name="title" id="title" placeholder="Enter a headline for your review"></input>
-                <br>
+                <span> If you own this product, we would be happy if you would write a review!</span>
+                {% endif %}
 
-                <label>Review:</label>
-                <br>
-                <textarea class="content" name="content" id="content" rows="4" placeholder="Share your thoughts with other customers about this product"></textarea>
+                {% endif %}
 
-                <br>
-                <button class="btn btn-primary" type="submit">Add Review</button>
-            </form>
+
+                {% if request.user.is_authenticated %}
+                <div class="container container-rating-comments">
+
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+
+                        <label>Rating</label><br>
+                        <label for="rating1">1</label>
+                        <input type="radio" id="rating1" name="rating" value="1">
+                        <label for="rating2">2</label>
+                        <input type="radio" id="rating2" name="rating" value="2">
+                        <label for="rating3">3</label>
+                        <input type="radio" id="rating3" name="rating" value="3" checked>
+                        <label for="rating4">4</label>
+                        <input type="radio" id="rating4" name="rating" value="4">
+                        <label for="rating5">5</label>
+                        <input type="radio" id="rating5" name="rating" value="5">
+                        <br>
+
+                        <label>Title: <span>(optional)</span></label><br>
+                        <input class="title" name="title" id="title"
+                            placeholder="Enter a headline for your review"></input>
+                        <br>
+
+                        <label>Review:</label>
+                        <br>
+                        <textarea class="content" name="content" id="content" rows="4"
+                            placeholder="Share your thoughts with other customers about this product"></textarea>
+
+                        <br>
+                        <button class="btn btn-primary" type="submit">Add Review</button>
+                    </form>
+                </div>
+                {% endif %}
+
+            </div>
+
         </div>
-        {% endif %}
 
-</div>
-
-</div>
-
-</div>
-
-<div id="successResponse" class="response">
-    <div class="response-content">
-      <div class="close">&times;</div>
-        <div class="container container-response-text">
-             <i class="fa-solid fa-circle-check" style="color: #008000;"></i> Product added to Cart!
-        </div>   
     </div>
-</div>
+
+    <div id="successResponse" class="response">
+        <div class="response-content">
+            <div class="close">&times;</div>
+            <div class="container container-response-text">
+                <i class="fa-solid fa-circle-check" style="color: #008000;"></i> Product added to Cart!
+            </div>
+        </div>
+    </div>
 
 </main>
 {% endblock content %}
 
 <div id="successResponse" class="response">
     <div class="response-content">
-      <div class="close">&times;</div>
+        <div class="close">&times;</div>
         <div class="container container-response-text">
-             <i class="fa-solid fa-circle-check" style="color: #008000;"></i> Product added to Cart!
-        </div>   
+            <i class="fa-solid fa-circle-check" style="color: #008000;"></i> Product added to Cart!
+        </div>
     </div>
-  </div>
-
+</div>
+</main>
 {% block scripts %}
 <script>
     var successResponse = document.getElementById("successResponse");

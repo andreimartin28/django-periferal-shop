@@ -47,56 +47,48 @@ Welcome
 
 {% block content %}
 <main>
-  <form hx-get="{% url 'render_products_list' %}"
-        hx-swap="innerHTML"
-        hx-target="#productsHolder"
-        hx-trigger="input">
-    
-    <div class="container container-a">
+    <form hx-get="{% url 'render_products_list' %}" hx-swap="innerHTML" hx-target="#productsHolder" hx-trigger="input">
+
+        <div class="container container-a">
 
             <div class="container container-b">
-            <div class="searchbar">
-                <!-- here is the search engine for 
+                <div class="searchbar">
+                    <!-- here is the search engine for 
                     typing a product made with HTMX -->
-                <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                name="search"
-                />
-            </div>
+                    <input class="form-control me-2" type="search" placeholder="Search" name="search" />
+                </div>
             </div>
 
             <div class="container container-c">
 
-            <div class="filter filter-categories">
-            <label>Categories</label>
-            <!-- we display the category names from the database -->
-            <select name="category" id="category_select" class="form-select">
-                <option value="">All</option>
-                {% for category in categories %}
-                <option value="{{category.id}}">{{category.name}}</option>
-                {% endfor %}
-            </select>
+                <div class="filter filter-categories">
+                    <label>Categories</label>
+                    <!-- we display the category names from the database -->
+                    <select name="category" id="category_select" class="form-select">
+                        <option value="">All</option>
+                        {% for category in categories %}
+                        <option value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter filter-brands">
+                    <label>Brands</label>
+                    <!-- here we display the brand names from the database -->
+                    <select name="brand" id="brand_select" class="form-select">
+                        <option value="">All</option>
+                        {% for brand in brands %}
+                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
-            <div class="filter filter-brands">
-            <label>Brands</label>
-            <!-- here we display the brand names from the database -->
-            <select name="brand" id="brand_select" class="form-select">
-                <option value="">All</option>
-                {% for brand in brands %}
-                <option value="{{ brand.id }}">{{ brand.name }}</option>
-                {% endfor %}
-            </select>
-            </div>
         </div>
 
         </div>
-    
-    </div>
 
-</form>
+    </form>
     
     <!-- here we display the html with products table from the database 
         with all the columns necessary to be shown for presentation -->
