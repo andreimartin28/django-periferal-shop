@@ -33,7 +33,13 @@
 }
 
 .product-image {
-    max-height: 500px;
+    display: flex;
+    box-sizing: border-box;
+    object-fit: contain;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 .product-detail {
@@ -46,22 +52,6 @@
 
 .product-name {
     margin-top: 44px;
-}
-
-.product-price {
-    margin-top: 200px;
-}
-
-.product-rating {
-    border: 3px solid green;
-}
-
-.product-add-to-cart {
-    margin-top: 20px;
-}
-
-.back-to-shop {
-    margin-top: 20px;
 }
 
 .container-product-description {
@@ -83,8 +73,15 @@
     border-radius: 15px;
 }
 
+.product-detail {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center
+}
+
 .container-review {
-    border: 3px solid #f1f1f5;
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px;
@@ -95,7 +92,6 @@
 }
 
 .container-rating-comments {
-    border: 3px solid #f1f1f5;
     margin-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
@@ -115,16 +111,24 @@
 }
 
 input.title {
-    width: 830px;
-    height: 30px;
-    padding-left: 5px;
+    width: 100%;
+    height: 2em;
+    padding-left: 0.3em;
     border-radius: 4px;
 }
 
+.product-price {
+    margin-bottom: 0.5em;
+}
+
+.back-to-shop {
+    margin-top: 1em;
+}
+
 textarea.content {
-    width: 830px;
-    height: 80px;
-    padding-left: 5px;
+    width: 100%;
+    height: 7em;
+    padding-left: 0.3em;
     border-radius: 4px;
 }
 
@@ -197,6 +201,7 @@ textarea.content {
 
 
 {% block content %}
+<main>
 <div class="product-page">
   
     <div class="container container-product">
@@ -217,7 +222,7 @@ textarea.content {
         </div>
    
         <div class="product-detail">
-    
+        
         <div class="product-price">
         <h4>{{ product.price }} {{ product.currency }}</h4>
         </div>
@@ -340,7 +345,7 @@ textarea.content {
     </div>
 </div>
 
-
+</main>
 {% endblock content %}
 
 <div id="successResponse" class="response">

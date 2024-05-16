@@ -64,14 +64,14 @@ Checkout
                     <span class="text-muted">Your cart</span>
                     <span class="badge badge-secondary badge-pill">3</span>
                 </h4>
-                <ul class="list-group mb-3 sticky-top" style="border: 3px solid blue;">
+                <ul class="list-group mb-3 sticky-top">
                     {% for item in cart %}
                     <li class="list-group-item justify-content-between quantity-product-price">
                         <div>
-                            <h6 class="my-0" style="border: 3px solid red;">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
+                            <h6 class="my-0"">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
                         </div>
                         <div>
-                            <span class="text-muted price-currency" style="border:3px solid blue;">{{ item.product.price }} {{ item.product.currency }} </span>
+                            <span class="text-muted price-currency">{{ item.product.price }} {{ item.product.currency }} </span>
                     </div>
                     </li>
                     {% endfor %}
