@@ -105,64 +105,65 @@ My Account
 <div class="main">
     <div class="container container-profile">
         <div class="container-profile-inside">
-        <h2 class="h2-profile">Your Profile</h2>
-            
-        <div class="container container-photo"> 
-            <img class="rounded-circle account-img" style="width:250px; height:250px;" src="{{ user.profile.image.url }}">
+            <h2 class="h2-profile">Your Profile</h2>
+
+            <div class="container container-photo">
+                <img class="rounded-circle account-img" style="width:250px; height:250px;"
+                    src="{{ user.profile.image.url }}">
             </div>
-        
+
             <div class="container container-details">
-            Username : {{ user.username }}
-            <br>
-            Email : {{ user.email }}
-            <br>
-            First name: {{ user.first_name }}
-            <br>
-            Last name : {{ user.last_name }}
-            <br>
-            Phone number : {{ user.phone_number }}
-            <br>
-            <br>
-            <a class="btn btn-primary edit-account" href="{% url 'edit_myaccount' %}">Edit Account</a>
-            <!-- end of container details -->    
+                Username : {{ user.username }}
+                <br>
+                Email : {{ user.email }}
+                <br>
+                First name: {{ user.first_name }}
+                <br>
+                Last name : {{ user.last_name }}
+                <br>
+                Phone number : {{ user.phone_number }}
+                <br>
+                <br>
+                <a class="btn btn-primary edit-account" href="{% url 'edit_myaccount' %}">Edit Account</a>
+                <!-- end of container details -->
+            </div>
         </div>
-        </div>
-            <!-- end of container profile-->
+        <!-- end of container profile-->
     </div>
 
     <!-- My orders -->
     <div class="container container-my-orders-outside">
-    
-    <div class="container container-my-orders-inside">
-    <div class="container container-order-text">
-    <h2>My orders</h2>
-    </div>
-    <br>
-    <br>
-    {% for order in request.user.orders.all %}
-        <div class="container container-order">
-            <div class="container container-order-number">
-            Order #{{ order.id }}
-            </div>
 
-            <div class="container container-product-enumeration">
-            {% for item in order.items.all %}
-            <div class="container container-product-entity">
-            {{ item.product.brand }} {{ item.product.name }}
-            <p> X {{ item.quantity }}</p>
-            <p>{{ item.get_total_price }} EURO</p>
+        <div class="container container-my-orders-inside">
+            <div class="container container-order-text">
+                <h2>My orders</h2>
+            </div>
+            <br>
+            <br>
+            {% for order in request.user.orders.all %}
+            <div class="container container-order">
+                <div class="container container-order-number">
+                    Order #{{ order.id }}
+                </div>
+
+                <div class="container container-product-enumeration">
+                    {% for item in order.items.all %}
+                    <div class="container container-product-entity">
+                        {{ item.product.brand }} {{ item.product.name }}
+                        <p> X {{ item.quantity }}</p>
+                        <p>{{ item.get_total_price }} EURO</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+                <div class="container container-products-total">
+                    <p class="text-lg">Order Date: {{ order.created_at }}</p>
+                    <p class="text-lg">Total Paid: {{ order.get_total_price }} EURO</p>
+                </div>
             </div>
             {% endfor %}
-            </div>
-
-
-            <div class="container container-products-total">
-            <p class="text-lg">Order Date: {{ order.created_at }}</p>
-            <p class="text-lg">Total Paid: {{ order.get_total_price }} EURO</p>
-            </div>
         </div>
-    {% endfor %}
     </div>
-</div>
 </div>
 {% endblock content %}

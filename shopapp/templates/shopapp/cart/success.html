@@ -38,27 +38,28 @@ Success
 {% block content %}
 
 <div class="success-body">
-<div class="container container-success-outside">
-<h1><i class="fa-solid fa-circle-check" style="color: #008000;"></i>
-    Thank you for your order, {{ request.user.last_name }}!</h1>
-   {% for order in request.user.orders.all %} 
+    <div class="container container-success-outside">
+        <h1><i class="fa-solid fa-circle-check" style="color: #008000;"></i>
+            Thank you for your order, {{ request.user.last_name }}!</h1>
+        {% for order in request.user.orders.all %}
         {% if forloop.first %}
-            Your order <strong>#{{ order.id }}</strong> is in the works. <br>
-            <div class="container container-success-inside">
+        Your order <strong>#{{ order.id }}</strong> is in the works. <br>
+        <div class="container container-success-inside">
             <div class="estimated-arrival">
-            <i class="fa-regular fa-calendar" style="color: black;"></i> Estimated arrival: {{ first_estimated_arrival|date:"F j, Y" }} - {{ last_estimated_arrival|date:"F j, Y" }}  <br> 
+                <i class="fa-regular fa-calendar" style="color: black;"></i> 
+                Estimated arrival: {{ first_estimated_arrival|date:"F j, Y" }} - {{ last_estimated_arrival|date:"F j, Y" }} <br>
             </div>
             <div class="shipping-to">
-            <i class="fa-solid fa-location-dot" style="color: black;"></i> Shipping To:  <br> 
-            {{ order.first_name }} {{ order.last_name }} <br>
-            {{ order.address }} <br>
-            {{ order.city }}, {{ order.zip_code }} <br>
-            {{ order.country }} <br><br>
-            Tracking information will be available once your order ships.
+                <i class="fa-solid fa-location-dot" style="color: black;"></i> Shipping To: <br>
+                {{ order.first_name }} {{ order.last_name }} <br>
+                {{ order.address }} <br>
+                {{ order.city }}, {{ order.zip_code }} <br>
+                {{ order.country }} <br><br>
+                Tracking information will be available once your order ships.
             </div>
-            </div>
+        </div>
         {% endif %}
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

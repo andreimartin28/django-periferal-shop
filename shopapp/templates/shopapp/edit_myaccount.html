@@ -50,29 +50,29 @@ Edit account
 
 {% block content %}
 <div class="edit-account">
-<div class="align-center col-8 offset-2">
-<div class="container container-edit-account-outside">
-<div class="container container-edit-account-inside">
-<h1 class="edit-account-text">Edit account</h1>
-<hr>
-<form method="POST" enctype="multipart/form-data" >
-    {% csrf_token %}
-    
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">
-            Profile Info
-        </legend>
-        {{ u_form|crispy }}
-        {{ p_form|crispy }}
-    </fieldset>
-    
-    <div class="form-group">
-        <button class="btn btn-primary submit" type="submit">Update</button>
-    </div>
+    <div class="align-center col-8 offset-2">
+        <div class="container container-edit-account-outside">
+            <div class="container container-edit-account-inside">
+                <h1 class="edit-account-text">Edit account</h1>
+                <hr>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-</form>
-</div>
-</div>
-</div>
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">
+                            Profile Info
+                        </legend>
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                    </fieldset>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary submit" type="submit">Update</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

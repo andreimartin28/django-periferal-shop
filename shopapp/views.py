@@ -213,8 +213,6 @@ def update_cart(request, product_id, action):
         cart.add(product_id, 1, True)
     elif action == 'decrement':
         cart.add(product_id, -1, True)
-    else:
-        cart.remove(product_id)
 
     product = Product.objects.get(pk=product_id)
 

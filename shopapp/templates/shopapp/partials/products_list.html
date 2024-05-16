@@ -145,43 +145,43 @@
 
 <div class="row row-2">
     {% for product in products %}
-        <div class="col-12 individual-card-col individual-card">
+    <div class="col-12 individual-card-col individual-card">
 
-            <div class="card">
+        <div class="card">
 
-                <div class="container container-image">
-                    <img class="product-image" src="{{ product.image.url }}"/>
-                </div>
-
-                <div class="container card-body">
-                
-                    <div class="container container-card-title">
-                        <h5 class="card-title">
-                            <a class="card-title" href="{% url 'product' slug=product.slug %}">{{ product.brand }} {{ product.name }}</a>
-                        </h5>
-                    </div>
-                
-                
-                    <div class="container container-card-text">
-                        <p class="card-text">{{ product.price }} {{product.currency}}</p>
-                    </div>
-
-                    <div class="container-add-to-cart">
-                        <a href="#" 
-                        id="card-button" 
-                        class="w-100 btn btn-primary"
-                        hx-get="{% url "add_to_cart" product.id %}"
-                        hx-trigger="click"
-                        hx-target="#menu-cart-button"
-                        onclick="opensuccessResponse()"
-                        >
-                        Add to Cart
-                        </a>
-                    </div>
-                </div>
+            <div class="container container-image">
+                <img class="product-image" src="{{ product.image.url }}" />
             </div>
 
+            <div class="container card-body">
+
+                <div class="container container-card-title">
+                    <h5 class="card-title">
+                        <a class="card-title" href="{% url 'product' slug=product.slug %}">{{ product.brand }} {{ product.name }}</a>
+                    </h5>
+                </div>
+
+
+                <div class="container container-card-text">
+                    <p class="card-text">{{ product.price }} {{ product.currency }}</p>
+                </div>
+
+                <div class="container-add-to-cart">
+                    <a href="#" 
+                       id="card-button" 
+                       class="w-100 btn btn-primary" 
+                       hx-get="{% url "add_to_cart" product.id %}" 
+                       hx-trigger="click" 
+                       hx-target="#menu-cart-button" 
+                       hx-swap="outerHTML"
+                       onclick="opensuccessResponse()">
+                        Add to Cart
+                    </a>
+                </div>
+            </div>
         </div>
+
+    </div>
     {% endfor %}
 </div>
 

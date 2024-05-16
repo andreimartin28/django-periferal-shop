@@ -228,8 +228,14 @@ textarea.content {
                 </div>
 
                 <div class="product-add-to-cart">
-                    <a id="card-button" class="btn btn-primary" hx-get="{% url "add_to_cart" product.id %}"
-                        hx-trigger="click" hx-target="#menu-cart-button" onclick="opensuccessResponse()">
+                    <a href="#" 
+                       id="card-button" 
+                       class="btn btn-primary" 
+                       hx-get="{% url "add_to_cart" product.id %}"
+                       hx-trigger="click" 
+                       hx-target="#menu-cart-button" 
+                       hx-swap="outerHTML" 
+                       onclick="opensuccessResponse()">
                         Add to Cart
                     </a>
                 </div>
@@ -249,17 +255,12 @@ textarea.content {
                 <h4>About this product:</h4>
                 {{ product.description|linebreaksbr }}
             </div>
-
+            
             <br>
-
-
+            
             <div class="container container-review">
 
                 <h3>Reviews</h3>
-
-
-
-
                 {% if product.reviews.all %}
                 {% for review in product.reviews.all %}
                 <div class="container container-comment-section">
@@ -291,7 +292,6 @@ textarea.content {
                 {% endif %}
 
                 {% endif %}
-
 
                 {% if request.user.is_authenticated %}
                 <div class="container container-rating-comments">
