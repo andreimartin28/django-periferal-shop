@@ -29,10 +29,13 @@ main.page {
     border-radius: 15px;
 }
 
+li.list-group-item {
+    display: flex;
+    flex-direction: row;
+}
+
 span.price-currency {
     padding-left: 2em;
-    display: inline-block;
-    white-space: nowrap;
 }
 
 .checkout {
@@ -63,18 +66,22 @@ Checkout
                 </h4>
                 <ul class="list-group mb-3 sticky-top" style="border: 3px solid blue;">
                     {% for item in cart %}
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <li class="list-group-item justify-content-between quantity-product-price">
                         <div>
-                            <h6 class="my-0">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
+                            <h6 class="my-0" style="border: 3px solid red;">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
                         </div>
                         <div>
                             <span class="text-muted price-currency" style="border:3px solid blue;">{{ item.product.price }} {{ item.product.currency }} </span>
-                        </div>
+                    </div>
                     </li>
                     {% endfor %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li class="list-group-item justify-content-between total-price">
+                        <div>
                         <span>Total</span>
+                        </div>
+                        <div>
                         <strong>{{ cart.get_total_cost }} EURO</strong>
+                        </div>
                     </li>
                 </ul>
             </div>
