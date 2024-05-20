@@ -5,29 +5,28 @@ from django.http.response import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.http import JsonResponse
 
-
 from .models import Product, Brand, Category, Order, OrderItem, Review
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from .cart import Cart
-# Create your views here.
 
 
 def startingpage(request):
     # we display all the products from the database
     products = Product.objects.all()
 
-    #
+    # here the brands from the db
     brands = Brand.objects.all()
 
+    # here the categories from the db
     categories = Category.objects.all()
 
-    # we display the context dictionary here
+    # we display the context dictionary
     context = {
                 "brands": brands,
                 "products": products,
@@ -296,8 +295,8 @@ def start_order(request):
         payment_method_types=['card'],
         line_items=items,
         mode='payment',
-        success_url='http://127.0.0.1:8000/cart/checkout/success/',
-        cancel_url='http://127.0.0.1:8000/cart/checkout/'
+        success_url=request.build_absolute_uri(reverse('success')),
+        cancel_url=request.build_absolute_uri(reverse('checkout')),
     )
 
     payment_intent = session.payment_intent

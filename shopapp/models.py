@@ -22,7 +22,8 @@ class User(AbstractUser):
                                 help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
                                 validators=[username_validator],
                                 error_messages={
-                                    "unique": "A user with that username already exists.",
+                                    "unique": "A user with that username " +
+                                              "already exists.",
                                 },
                                 )
 
@@ -35,37 +36,28 @@ class User(AbstractUser):
                                   },
                                   )
 
-    last_name = models.CharField(
-                                 blank=True,
+    last_name = models.CharField(blank=True,
                                  max_length=50,
                                  validators=[lastname_validator],
                                  error_messages={
                                      "unique": "Last name is invalid. Try again."
-                                 }
-                                 )
+                                 })
 
-    phone_number = models.CharField(
-                                    blank=True,
+    phone_number = models.CharField(blank=True,
                                     max_length=10,
-                                    help_text="Format: 07********"
-                                    )
+                                    help_text="Format: 07********")
 
-    email = models.EmailField(
-                              max_length=100,
+    email = models.EmailField(max_length=100,
                               blank=True,
                               unique=True,
-                              validators=[email_validator]
-                              )
+                              validators=[email_validator])
 
-    is_staff = models.BooleanField(
-                                    default=False,
-                                    help_text="Designates whether the user can log into this admin site.",
-                                    )
+    is_staff = models.BooleanField(default=False,
+                                   help_text="Designates whether the user can log into this admin site.")
 
     is_active = models.BooleanField(
                                     default=True,
-                                    help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
-                                    )
+                                    help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.")
 
     date_joined = models.DateTimeField(default=timezone.now)
 
@@ -119,11 +111,6 @@ class Currency(models.Model):
         verbose_name = "Currency"
         verbose_name_plural = "Currencies"
 
-# currency_list = [
-#     ("RON", "RON"),
-#     ("EURO", "EURO")
-# ]
-
 
 class Color(models.Model):
     name = models.CharField(max_length=100)
@@ -133,11 +120,6 @@ class Color(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-# color_list = [
-#     ("black", "black"),
-#     ("white", "white")
-# ]
-
 
 class Brand(models.Model):
     name = models.CharField(max_length=150)
@@ -146,15 +128,6 @@ class Brand(models.Model):
 
     def __str__(self):
         return f"{self.name}"
-
-
-# brand_list = [
-#     ('Logitech', 'Logitech'),
-#     ('Steelseries', 'Steelseries'),
-#     ('Razer', 'Razer'),
-#     ('LG', 'LG'),
-#     ('Dell', 'Dell'),
-# ]
 
 
 class Product(models.Model):

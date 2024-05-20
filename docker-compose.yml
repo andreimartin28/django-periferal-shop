@@ -1,0 +1,13 @@
+version: '3.11.9'
+
+services:
+
+  app:
+    build: .
+    volumes: 
+      - .:/shop
+    ports:
+      - 10000:10000
+    command: ["gunicorn", "shop.wsgi:application", "--bind", "0.0.0.0:10000"]
+    container_name: resume_periferal
+    tty: true

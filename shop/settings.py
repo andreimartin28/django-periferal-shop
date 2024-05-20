@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from django.urls import reverse_lazy
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,19 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e3o)x692yd&=%f)$fe&k2@5lz+u)nb4*glz0_a^1d5i5ro9hg%'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # session in seconds
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 
-STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51O4LvfHduJyApJohYV9NDtEcNZlJJr20luA234vnm2DQ3gUe1DhZNKe5ct7MqFj97J1dwe6vGzsqB7PzD4rXVhVM00EgJahmnt'
-STRIPE_API_KEY_HIDDEN = 'sk_test_51O4LvfHduJyApJoh3w8znkNriLjjqXvaEfFrMNULaGB9Ae9gePhX6ehYO5QpxdJS1Q6DVGy1gmitaCS981vtxkbR00Egn12XEu'
+STRIPE_API_KEY_PUBLISHABLE = config('STRIPE_API_KEY_PUBLISHABLE')
+STRIPE_API_KEY_HIDDEN =  config('STRIPE_API_KEY_HIDDEN')
 
 # Application definition
 
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,6 +135,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
