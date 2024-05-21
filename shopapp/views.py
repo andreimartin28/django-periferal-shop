@@ -229,6 +229,7 @@ def update_cart(request, product_id, action):
                 'image': product.image,
                 'price': product.price,
                 'currency': product.currency,
+                'slug': product.slug,
             },
             'total_price': quantity * product.price,
             'quantity': quantity,
