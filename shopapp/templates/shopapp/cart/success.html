@@ -41,7 +41,7 @@ Success
 <div class="success-body">
     <div class="container container-success-outside">
         <h1><i class="fa-solid fa-circle-check" style="color: #008000;"></i>
-            Thank you for your order, {{ request.user.last_name }}!</h1>
+            Thank you for your order, {{ request.user.first_name }}!</h1>
         {% for order in request.user.orders.all %}
         {% if forloop.first %}
         Your order <strong>#{{ order.id }}</strong> is in the works. <br>

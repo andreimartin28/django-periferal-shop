@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from django.urls import reverse_lazy
 import os
 from decouple import config
 
@@ -35,11 +34,12 @@ SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 
 STRIPE_API_KEY_PUBLISHABLE = config('STRIPE_API_KEY_PUBLISHABLE')
-STRIPE_API_KEY_HIDDEN =  config('STRIPE_API_KEY_HIDDEN')
+STRIPE_API_KEY_HIDDEN = config('STRIPE_API_KEY_HIDDEN')
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

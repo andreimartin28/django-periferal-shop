@@ -6,6 +6,7 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
 
      path('admin/',
@@ -77,6 +78,7 @@ urlpatterns = [
           name='start_order'),
 
 ]
+
 
 htmx_views = [
     path("check-username/",
