@@ -68,78 +68,80 @@ Checkout
                     {% for item in cart %}
                     <li class="list-group-item justify-content-between quantity-product-price">
                         <div>
-                            <h6 class="my-0"">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
+                            <h6 class="my-0">{{ item.quantity }} x {{ item.product.brand }} {{ item.product.name }}</h6>
                         </div>
                         <div>
-                            <span class="text-muted price-currency">{{ item.product.price }} {{ item.product.currency }} </span>
-                    </div>
+                            <span class="text-muted price-currency">{{ item.product.price }} {{ item.product.currency }}</span>
+                        </div>
                     </li>
                     {% endfor %}
                     <li class="list-group-item justify-content-between total-price">
                         <div>
-                        <span>Total</span>
+                            <span>Total</span>
                         </div>
                         <div>
-                        <strong>{{ cart.get_total_cost }} EURO</strong>
+                            <strong>{{ cart.get_total_cost }} EURO</strong>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Billing address</h4>
+                <form id="checkoutForm">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First name</label>
-                            <input name="first_name" type="text" class="form-control" id="firstName" placeholder="{{ request.user.first_name }}" value="" required="">
-                            <div class="invalid-feedback"> Valid first name is required. </div>
+                            <input name="first_name" type="text" class="form-control" id="firstName" placeholder="{{ request.user.first_name }}" value="" required>
+                            <div id="first_nameError" class="error-message"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last name</label>
-                            <input name="last_name" type="text" class="form-control" id="lastName" placeholder="{{ request.user.last_name }}" value="" required="">
-                            <div class="invalid-feedback"> Valid last name is required. </div>
+                            <input name="last_name" type="text" class="form-control" id="lastName" placeholder="{{ request.user.last_name }}" value="" required>
+                            <div id="last_nameError" class="error-message"></div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="email">Email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="{{ request.user.email }}" required="" value="">
-                        <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="{{ request.user.email }}" required value="">
+                        <div id="emailError" class="error-message"></div>
                     </div>
                     <div class="mb-3">
                         <label for="address">Address</label>
-                        <input name="address" type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                        <input name="address" type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                        <div id="addressError" class="error-message"></div>
                     </div>
                     <div class="mb-3">
                         <label for="optional_address">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input name="optional_address" type="text" class="form-control" id="optional_address" placeholder="Street number,etc.">
+                        <input name="optional_address" type="text" class="form-control" id="optional_address" placeholder="Street number, etc.">
+                        <div id="optionalAddressError" class="error-message"></div>
                     </div>
                     <div class="mb-3">
                         <label for="phone">Phone number</label>
-                        <input name="phone" type="tel" class="form-control" id="phone_number" placeholder="{{ request.user.phone_number }}" pattern="[0-9]{10}" required="" maxlength=12>
+                        <input name="phone" type="tel" class="form-control" id="phone" placeholder="{{ request.user.phone_number }}" pattern="[0-9]{10}" required maxlength=12>
                         <small class="text-muted">Format: 07xxxxxxxx</small>
-                        <div class="invalid-feedback"> Please enter a valid phonenumber. </div>
+                        <div id="phoneError" class="error-message"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="country">Country</label>
-                            <input name="country" type="text" class="form-control" id="country" placeholder="Romania/United Kingdom/Italy" required="">
-                            <div class="invalid-feedback"> Please enter your country. </div>
+                            <input name="country" type="text" class="form-control" id="country" placeholder="Romania/United Kingdom/Italy" required>
+                            <div id="countryError" class="error-message"></div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="city">City</label>
-                            <input name="city" type="text" class="form-control" id="city" placeholder="Constanta/London/Rome" required="">
-                            <div class="invalid-feedback"> Please enter your city. </div>
+                            <input name="city" type="text" class="form-control" id="city" placeholder="Constanta/London/Rome" required>
+                            <div id="cityError" class="error-message"></div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="zip">Zip</label>
-                            <input name="zip_code" type="text" class="form-control" id="zip_code" placeholder="12345" required="">
-                            <div class="invalid-feedback"> Zip code required. </div>
+                            <input name="zip_code" type="text" class="form-control" id="zip_code" placeholder="12345" required>
+                            <div id="zip_codeError" class="error-message"></div>
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button onclick="buy(event)"
-                            class="btn btn-primary btn-lg btn-block checkout" 
-                            type="submit">Confirm checkout</button>
+                    <button onclick="buy(event)" class="btn btn-primary btn-lg btn-block checkout" type="submit">Confirm checkout</button>
+                </form>
             </div>
         </div>
     </div>
@@ -151,43 +153,60 @@ Checkout
 <script type="application/javascript" src="https://js.stripe.com/v3"> </script>
 <script> 
     function validateForm(data) {
-        let errors = []
-
+        let errors = {};
+    
         if (data.first_name === '') {
-            errors.push('First name is empty')
+            errors.first_name = 'First name is empty';
         }
         
+        if (data.last_name === '') {
+            errors.last_name = 'Last name is empty';
+        }
+
         if (data.email === '') {
-            errors.push('Email is empty')
+            errors.email = 'Email is empty';
         }
-
+    
         if (data.address === '') {
-            errors.push('Address is empty.')
+            errors.address = 'Address is empty.';
         }
-
+    
         if (data.phone === '') {
-            errors.push('Phone number is empty.')
+            errors.phone = 'Phone number is empty.';
         }
-
+    
         if (data.country === '') {
-            errors.push('Country is empty.')
+            errors.country = 'Country is empty.';
         }
-
+    
         if (data.city === '') {
-            errors.push('City is empty.')
+            errors.city = 'City is empty.';
         }
-
+    
         if (data.zip_code === '') {
-            errors.push('Zip code is empty.')
+            errors.zip_code = 'Zip code is empty.';
         }
-
-        return errors
+    
+        return errors;
     }
-
+    
+    function displayErrors(errors) {
+        // Clear all previous error messages
+        document.querySelectorAll('.error-message').forEach(el => el.innerHTML = '');
+    
+        // Display new error messages
+        for (const [field, message] of Object.entries(errors)) {
+            const errorContainer = document.querySelector(`#${field}Error`);
+            if (errorContainer) {
+                errorContainer.innerHTML = `<p class="text-danger">${message}</p>`;
+            }
+        }
+    }
+    
     function buy(event) {
-        event.preventDefault()
-
-        let data= {
+        event.preventDefault();
+    
+        let data = {
             'first_name': document.querySelector('input[name=first_name]').value,
             'last_name': document.querySelector('input[name=last_name]').value,
             'email': document.querySelector('input[name=email]').value,
@@ -197,15 +216,15 @@ Checkout
             'country': document.querySelector('input[name=country]').value,
             'city': document.querySelector('input[name=city]').value,
             'zip_code': document.querySelector('input[name=zip_code]').value,
-        }
-
-        let errors = validateForm(data)
-
-        if (errors.length) {
-            console.log('Errors', errors)
+        };
+    
+        let errors = validateForm(data);
+    
+        if (Object.keys(errors).length) {
+            displayErrors(errors);
         } else {
-            var stripe = Stripe('{{ pub_key }}')
-
+            var stripe = Stripe('{{ pub_key }}');
+    
             fetch('/order/start_order/', {
                 method: 'POST',
                 headers: {
@@ -213,25 +232,25 @@ Checkout
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
                 credentials: 'same-origin',
-                body: JSON.stringify(data) 
+                body: JSON.stringify(data)
             })
             .then(function(response) {
-                return response.json()
+                return response.json();
             })
-            .then(function(session){
-                return stripe.redirectToCheckout({ sessionId: session.session.id })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.session.id });
             })
-            .then(function(result){
+            .then(function(result) {
                 if (result.error) {
-                    alert(result.error.message)
+                    alert(result.error.message);
                 }
             })
-            .catch(function(error){
-                console.log('Errors', error)
-            })
+            .catch(function(error) {
+                console.log('Errors', error);
+            });
         }
-
-        return false
+    
+        return false;
     }
 </script>
 {% endblock scripts %}
