@@ -148,10 +148,10 @@
     <div class="col-12 individual-card-col individual-card">
 
         <div class="card">
+                <div class="container container-image" style="cursor: pointer;" onclick="javascript:window.location.href='{% url 'product' slug=product.slug %}' ";>
+                    <img class="product-image" src="{{ product.image.url }}"/>
+                </div>
 
-            <div class="container container-image">
-                <img class="product-image" src="{{ product.image.url }}" />
-            </div>
 
             <div class="container card-body">
 
