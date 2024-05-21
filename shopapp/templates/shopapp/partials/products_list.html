@@ -36,6 +36,7 @@
         min-height: 60%;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
 
     .card-body {
@@ -148,7 +149,8 @@
     <div class="col-12 individual-card-col individual-card">
 
         <div class="card">
-                <div class="container container-image" style="cursor: pointer;" onclick="javascript:window.location.href='{% url 'product' slug=product.slug %}' ";>
+                <div class="container container-image" 
+                     onclick="javascript:window.location.href='{% url 'product' slug=product.slug %}'";>
                     <img class="product-image" src="{{ product.image.url }}"/>
                 </div>
 
