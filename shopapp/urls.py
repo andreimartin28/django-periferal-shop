@@ -5,9 +5,22 @@ from shopapp.views import *
 from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.defaults import page_not_found, server_error
+
+
+def custom_page_not_found(request):
+    return page_not_found(request, None)
+
+
+def custom_server_error(request):
+    return server_error(request)
 
 
 urlpatterns = [
+
+     path("404/", custom_page_not_found),
+
+     path("500/", custom_server_error),
 
      path('admin/',
           admin.site.urls),
@@ -89,6 +102,7 @@ htmx_views = [
          views.check_email,
          name='check-email'),
 ]
+
 
 urlpatterns += htmx_views
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
