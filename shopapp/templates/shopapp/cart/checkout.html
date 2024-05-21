@@ -190,6 +190,8 @@ Checkout
         return errors;
     }
     
+    /* JS Logic for diplaying errors if input is empty */
+
     function displayErrors(errors) {
         // Clear all previous error messages
         document.querySelectorAll('.error-message').forEach(el => el.innerHTML = '');
@@ -198,7 +200,7 @@ Checkout
         for (const [field, message] of Object.entries(errors)) {
             const errorContainer = document.querySelector(`#${field}Error`);
             if (errorContainer) {
-                errorContainer.innerHTML = `<p class="text-danger">${message}</p>`;
+                errorContainer.innerHTML = `<p class="text-danger" style="margin-left:2px;">${message}</p>`;
             }
         }
     }

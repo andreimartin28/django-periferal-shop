@@ -293,7 +293,7 @@ textarea.content {
                 {% if request.user.is_authenticated %}
                 <div class="container container-rating-comments">
 
-                    <form method="POST" action=".">
+                    <form id="reviewForm" method="POST" action=".">
                         {% csrf_token %}
 
                         <label>Rating</label><br>
@@ -318,6 +318,7 @@ textarea.content {
                         <br>
                         <textarea class="content" name="content" id="content" rows="4"
                             placeholder="Share your thoughts with other customers about this product"></textarea>
+                            <div id="reviewError" class="error-message" style="display: none; color: red;">You should write a review first before submitting.</div>
 
                         <br>
                         <button class="btn btn-primary" type="submit">Add Review</button>
@@ -343,17 +344,11 @@ textarea.content {
 </main>
 {% endblock content %}
 
-<div id="successResponse" class="response">
-    <div class="response-content">
-        <div class="close">&times;</div>
-        <div class="container container-response-text">
-            <i class="fa-solid fa-circle-check" style="color: #008000;"></i> Product added to Cart!
-        </div>
-    </div>
-</div>
-</main>
+
 {% block scripts %}
 <script>
+
+    /* JS logic for the add to cart button */
     var successResponse = document.getElementById("successResponse");
     
     var closeBtn = successResponse.querySelector(".close");
@@ -371,5 +366,17 @@ textarea.content {
         successResponse.style.display = "none";
       }
     }
+
+    /* JS logic for the review form */
+    document.getElementById("reviewForm").addEventListener("submit", function(event) {
+        var reviewContent = document.getElementById("content").value.trim();
+        if (reviewContent === "") {
+            document.getElementById("reviewError").style.display = "block";
+            event.preventDefault(); // Prevent form submission
+        } else {
+            document.getElementById("reviewError").style.display = "none"; // Hide error message if review is not empty
+        }
+    });
+
 </script>
 {% endblock scripts %}
