@@ -461,7 +461,9 @@ screen and (min-resolution: 192dpi) {
                 <div class="container container-comment-section">
                     <img class="rounded-circle account-img" style="width:50px; height:50px;"
                         src="{{ review.created_by.profile.image.url }}"> {{ review.created_by }}<br>
-                    <strong>Rating:</strong> {{ review.rating }} / 5
+                    <p class="starability-result" data-rating="{{ review.rating }}"
+                        style="margin-bottom: -12px; margin-top: 3px;">
+                        Rated: {{ review.rating }} stars</p>
                     {% if review.title == ''%}
                     <br>
                     {% else %}
