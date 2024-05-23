@@ -30,12 +30,12 @@ mkdir project_folder
 cd project_folder
 
 3. Clone the repository:
-git clone https://github.com/your_username/your_project.git
+git clone https://github.com/andreimartin28/django-periferal-shop.git
 
 4. Build and run the Docker containers:
 docker-compose up --build
 
-4. Access the application at `http://localhost:10000`. You can change the port from docker with any port you prefer(eg: the classic port 8000).
+4. Access the application at `http://localhost:10000`. You can change the port from docker with any port you prefer(ex: the classic port 8000).
 
 ## Usage
 
