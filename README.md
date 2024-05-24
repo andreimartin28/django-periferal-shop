@@ -53,12 +53,12 @@ docker-compose up --build
 
 - Checkout with a dummy billing address. 
 
-- When redirected to the Stripe Test Mode API, use the following test card data and click on pay: 
-    -> Email: test@test.com
-    -> Card information: 4242 4242 4242 4242
-    -> MM/YY: 12/34 and CVC: 567
-    -> Cardholder name: any name you prefer, it really doesn't matter.
-    -> Country or region: any country or region you prefer. 
+- When redirected to the Stripe Test Mode API, use the following test card data and click on pay:  <br />
+    -> Email: test@test.com <br />
+    -> Card information: 4242 4242 4242 4242 <br />
+    -> MM/YY: 12/34 and CVC: 567 <br />
+    -> Cardholder name: any name you prefer, it really doesn't matter. <br />
+    -> Country or region: any country or region you prefer.  <br />
 
 - Succes! You have made a dummy order. For order history details, you can check by getting back to my account page while logged in.
 
