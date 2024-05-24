@@ -64,7 +64,10 @@ Login
   <button type="submit" class="btn btn-primary"> Login </button>
   </div>
 </form>
-  
+<br>
+{% if form.errors %}
+<p class='text-danger'>Your username and password didn't match. Please try again</p>
+{% endif %}
   <div class="border-top pt-3">
         <small class="text-muted">
             Don't Have An Account? <a class="ml-2" href="{% url "register" %}">Register here</a>
