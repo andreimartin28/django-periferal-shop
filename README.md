@@ -12,6 +12,8 @@ The project is built using Python Django framework for fullstack and SQLite for 
 
 Docker is used to create images for deployment.
 
+Written according to PEP 8 coding standard.
+
 ## Features
 - User authentication: Users can sign up, log in, and log out.
 - Product browsing: Users can browse through a list of available products and click on them for more information about features/characteristics.
